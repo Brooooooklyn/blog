@@ -3,16 +3,16 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: Brooooooklyn
 subtitle:
 description:
-author: John Doe
-language:
-timezone:
+author: LongYinan
+language: zh-cmn-Hans
+timezone: UTC+08:00
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://vvlyn.xyz
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
