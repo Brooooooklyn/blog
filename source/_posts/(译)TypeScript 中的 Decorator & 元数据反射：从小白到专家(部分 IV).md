@@ -190,7 +190,7 @@ interface _Type {
 }
 ```
 
-我们也可以找到一些用来描述所有可能类型的类。比如，我们可以找到序列化范性接口 ```interface foo<bar> { /* ... */}``` 的类：
+我们也可以找到一些用来描述所有可能类型的类。比如，我们可以找到序列化范性接口 `interface foo<bar> { /* ... */}` 的类：
 
 ```ts
 /**
@@ -246,7 +246,6 @@ implements?: Type[];
 我们不知道对复杂类型序列的支持什么时候会被加入到 TypeScript 的功能中，但我们已经迫不及待了因为我们计划用它为我们的 JavaScript IoC 容器：[InversifyJS](http://blog.wolksoftware.com/introducing-inversifyjs) 增加一些碉堡的特性。
 
 ### 5. 结论
-*5. Conclusion*
 
 在本系列中，我们深入浅出的学习了4种可用的装饰器、如何创建一个装饰器工厂和如何使用装饰器工厂实现一个可配置的装饰器。
 
