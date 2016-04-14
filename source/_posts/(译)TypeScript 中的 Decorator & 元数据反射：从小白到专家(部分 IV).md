@@ -70,9 +70,9 @@ npm install reflect-metadata
 
 随后我们可以实现我们自己的装饰器并且使用一个可用的`元数据设计键`。到目前为止，只有三个可用的键:
 
-- `类型元数据`使用元数据键```"design:type"```
-- `参数类型元数据`使用元数据键```"design:paramtypes"```
-- `返回值类型元数据`使用元数据键```"design:returntype"```
+- `类型元数据`使用元数据键"design:type"
+- `参数类型元数据`使用元数据键"design:paramtypes"
+- `返回值类型元数据`使用元数据键"design:returntype"
 
 让我们来看一组例子：
 
@@ -154,17 +154,17 @@ Reflect.getMetadata("design:returntype", target, key);
 
 让我们再来看一次上面的 design:paramtypes 例子。我们注意到接口 IFoo 和字面量对象 ```{ test : string}``` 都序列化为 Object。这是因为 TypeScript 只支持基础类型的序列化。基础类型的序列化规则是：
 
-- number 序列化为 ```Number```
-- string 序列化为 ```String```
-- boolean 序列化为 ```Boolean```
-- any 序列化为 ```Object```
-- void 序列化为 ```undefined```
-- Array 序列化为 ```Array```
-- 如果是一个多元组，序列化为 ```Array```
-- 如果是一个类，序列化为 ```class constructor```
-- 如果是一个枚举，序列化为 ```Number```
-- 如果至少有一个调用签名，序列化为 ```Function```
-- 其它的序列化为 ```Object``` (包括接口)
+- number 序列化为 `Number`
+- string 序列化为 `String`
+- boolean 序列化为 `Boolean`
+- any 序列化为 `Object`
+- void 序列化为 `undefined`
+- Array 序列化为 `Array`
+- 如果是一个多元组，序列化为 `Array`
+- 如果是一个类，序列化为 `class constructor`
+- 如果是一个枚举，序列化为 `Number`
+- 如果至少有一个调用签名，序列化为 `Function`
+- 其它的序列化为 `Object` (包括接口)
 
 
 接口和字面量对象在未来可能会被序列化为`复杂类型序列`，但是这个特性现在还不能用。
