@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "3.2.0"
+    "version": "3.2.2"
   },
   "scripts": {
-    "start": "pm2 start pm2/start.json && pm2 start pm2/app.json"
+    "start": "pm2 start pm2/app.json"
   },
   "dependencies": {
     "hexo": "^3.2.0",
@@ -20,6 +20,14 @@
     "hexo-server": "^0.2.0"
   },
   "devDependencies": {
+    "config": "^1.21.0",
+    "gulp": "^3.9.1",
+    "gulp-replace": "^0.5.4",
     "hexo": "^3.2.0"
+  },
+  "standard": {
+    "globals": [
+      "sneaky"
+    ]
   }
 }
