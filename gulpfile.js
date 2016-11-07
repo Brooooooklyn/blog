@@ -5,6 +5,6 @@ gulp.task('default', () => {
   gulp.src([
     './public/**/*.html'
   ])
-    .pipe(replace('"../images', '"http://vvlyn.xyz/images/'))
+    .pipe(replace('"../images', '"http://vvlyn.xyz/images'))
     .pipe(gulp.dest('./public'))
 })
