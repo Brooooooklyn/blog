@@ -60,7 +60,22 @@ time_format: HH:mm:ss
 per_page: 10
 pagination_dir: page
 
-# Extensions
-## Plugins: https://hexo.io/plugins/
-## Themes: https://hexo.io/themes/
-theme: next
+theme: apollo
+
+archive_generator:
+  per_page: 0
+  yearly: false
+  monthly: false
+  daily: false
+
+menu:
+  Blog: /
+  Archive: /archives/
+  Zhihu: https://www.zhihu.com/people/Broooooklyn
+  GitHub: https://github.com/Brooooooklyn
+  Rss: /atom.xml
+
+favicon: /favicon.png
+logo: /favicon.png
+ga: UA-106541132-1
+startyear: 2016
