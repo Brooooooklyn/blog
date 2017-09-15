@@ -62,11 +62,18 @@ pagination_dir: page
 
 theme: apollo
 
+# Copyright Infomation
+startyear: 2016
+
 archive_generator:
   per_page: 0
   yearly: false
   monthly: false
   daily: false
+
+plugins:
+  hexo-generator-feed
+  hexo-generator-sitemap
 
 menu:
   Blog: /
