@@ -15,6 +15,8 @@ tags:
 
 > 本文是一系列介绍 RxJS 文章的第二篇，这一系列的文章将从一个小的例子开始，逐渐深入的讲解 RxJS 在各种场景下的应用。对应的，也会有对 RxJS 各种操作符的讲解。这篇文章将接着第一篇[Hello Rx](https://zhuanlan.zhihu.com/p/23331432) 中的例子，将更多的异步业务(Http 请求) 接入我们的 Todo App 中。在例子中，会使用更多操作符(RxJS Operator) 来处理我们的业务，后续的文章中会详细的讲解这些操作符的作用和使用场景。
 
+<!--more-->
+
 ## 准备工作
 首先在 https://github.com/teambition/learning-rxjs clone 项目所需的 seed，并`基于 article1 分支 checkout 一个你的 article2 分支`。本文中所有涉及到 RxJS 的代码将全部使用 TypeScript 编写。
 这篇文章中，我们将使用 `RxJS` 实现以下几个功能:

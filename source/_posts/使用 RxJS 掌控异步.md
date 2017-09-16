@@ -21,7 +21,7 @@ tags:
 
 [ben lesh](https://github.com/blesh) 经常在他的各种 talking 中将 RxJS 比作 *Lodash for Async* 用来彰显 RxJS 的强大异步控制能力，而 RxJS 对于异步而言确实有着媲美 [lodash](https://lodash.com/) 之于 Array 的强大功能。与 lodash 的优秀性能类似，RxJS 在操作异步任务的时的性能也是非常优秀的，并不会因为高等级的抽象而牺牲过多的性能。本篇文章将会以一个相对复杂的异步任务为例子，逐步介绍 RxJS 如何简洁优雅的进行复杂的异步控制。
 
-
+<!--more-->
 
 ## 准备工作
 
