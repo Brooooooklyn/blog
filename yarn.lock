@@ -454,9 +454,9 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
-coffee-script@^1.9.2:
-  version "1.12.7"
-  resolved "http://registry.npm.taobao.org/coffee-script/download/coffee-script-1.12.7.tgz#c05dae0cb79591d05b3070a8433a98c9a89ccc53"
+coffeescript@^2.1.0:
+  version "2.1.1"
+  resolved "http://registry.npm.taobao.org/coffeescript/download/coffeescript-2.1.1.tgz#18aefff7ac606a4e32d0ebdfd9afa52b41032bb0"
 
 colors@^1.0.3:
   version "1.1.2"
@@ -516,9 +516,9 @@ concat-stream@^1.5.2:
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
 
-config@^1.26.2:
-  version "1.26.2"
-  resolved "https://registry.yarnpkg.com/config/-/config-1.26.2.tgz#2466291168d8afae0aae8ab99ea4d4272f520cae"
+config@^1.29.2:
+  version "1.29.2"
+  resolved "http://registry.npm.taobao.org/config/download/config-1.29.2.tgz#2ebdc92639eb9d06fffd302f1ee32e2ad0e94e11"
   dependencies:
     json5 "0.4.0"
     os-homedir "1.0.2"
@@ -1613,6 +1613,14 @@ hawk@~3.1.3:
     hoek "2.x.x"
     sntp "1.x.x"
 
+hexo-bunyan@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/hexo-bunyan/download/hexo-bunyan-1.0.0.tgz#b2106b26547b232f0195db863cb5d5ff8527fd36"
+  optionalDependencies:
+    moment "^2.10.6"
+    mv "~2"
+    safe-json-stringify "~1"
+
 hexo-cli@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/hexo-cli/-/hexo-cli-1.0.3.tgz#64aa13eda34a0261dc339171e07ad131ef610ac7"
@@ -1643,9 +1651,9 @@ hexo-fs@^0.2.0:
     escape-string-regexp "^1.0.5"
     graceful-fs "^4.1.4"
 
-hexo-generator-archive@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/hexo-generator-archive/-/hexo-generator-archive-0.1.4.tgz#16df76ec9187e510dff6c192204b0f7f7c506069"
+hexo-generator-archive@^0.1.5:
+  version "0.1.5"
+  resolved "http://registry.npm.taobao.org/hexo-generator-archive/download/hexo-generator-archive-0.1.5.tgz#a979214cdddee2693e0551809c294bedadbb69b3"
   dependencies:
     hexo-pagination "0.0.2"
     object-assign "^2.0.0"
@@ -1699,6 +1707,13 @@ hexo-log@^0.1.2:
     bunyan "^1.5.1"
     chalk "^1.1.1"
 
+hexo-log@^0.2.0:
+  version "0.2.0"
+  resolved "http://registry.npm.taobao.org/hexo-log/download/hexo-log-0.2.0.tgz#d30fd45e1a12a83c88033586640485efc5df5a6f"
+  dependencies:
+    chalk "^1.1.1"
+    hexo-bunyan "^1.0.0"
+
 hexo-pagination@0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/hexo-pagination/-/hexo-pagination-0.0.2.tgz#8cf470c7db0de5b18a3926a76deb194015df7f2b"
@@ -1712,14 +1727,14 @@ hexo-renderer-jade@^0.4.1:
     jade "^1.11.0"
     pug "^2.0.0-rc.1"
 
-hexo-renderer-marked@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/hexo-renderer-marked/-/hexo-renderer-marked-0.3.0.tgz#5fa27a361075d148b8ecff29952a3e15e23aed81"
+hexo-renderer-marked@^0.3.2:
+  version "0.3.2"
+  resolved "http://registry.npm.taobao.org/hexo-renderer-marked/download/hexo-renderer-marked-0.3.2.tgz#d6a37af9ff195e30f9ef6ede1a06ea1fe4322966"
   dependencies:
-    hexo-util "^0.6.0"
-    marked "^0.3.5"
-    object-assign "^4.1.0"
-    strip-indent "^1.0.1"
+    hexo-util "^0.6.2"
+    marked "^0.3.9"
+    object-assign "^4.1.1"
+    strip-indent "^2.0.0"
 
 hexo-renderer-stylus@^0.3.3:
   version "0.3.3"
@@ -1728,9 +1743,9 @@ hexo-renderer-stylus@^0.3.3:
     nib "^1.1.2"
     stylus "^0.54.5"
 
-hexo-server@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/hexo-server/-/hexo-server-0.2.2.tgz#592686b554b8bfe09a19bc86c0f003ac3e8c19b9"
+hexo-server@^0.3.1:
+  version "0.3.1"
+  resolved "http://registry.npm.taobao.org/hexo-server/download/hexo-server-0.3.1.tgz#86956fe7ff6bb9407f99a113666c3f1278a47979"
   dependencies:
     bluebird "^3.0.6"
     chalk "^1.1.1"
@@ -1753,9 +1768,20 @@ hexo-util@^0.6.0:
     html-entities "^1.2.0"
     striptags "^2.1.1"
 
-hexo@^3.3.9:
-  version "3.3.9"
-  resolved "https://registry.yarnpkg.com/hexo/-/hexo-3.3.9.tgz#9c1503ebef509987fb3c2a36cf8249419e25e6ef"
+hexo-util@^0.6.2:
+  version "0.6.3"
+  resolved "http://registry.npm.taobao.org/hexo-util/download/hexo-util-0.6.3.tgz#16a2ade457bef955af0dfd22a3fe6f0a49a9137c"
+  dependencies:
+    bluebird "^3.4.0"
+    camel-case "^3.0.0"
+    cross-spawn "^4.0.0"
+    highlight.js "^9.4.0"
+    html-entities "^1.2.0"
+    striptags "^2.1.1"
+
+hexo@^3.4.4:
+  version "3.4.4"
+  resolved "http://registry.npm.taobao.org/hexo/download/hexo-3.4.4.tgz#d761386ea3495079facf7bb896920974c6faefdb"
   dependencies:
     abbrev "^1.0.7"
     archy "^1.0.0"
@@ -1767,13 +1793,13 @@ hexo@^3.3.9:
     hexo-front-matter "^0.2.2"
     hexo-fs "^0.2.0"
     hexo-i18n "^0.2.1"
-    hexo-log "^0.1.2"
+    hexo-log "^0.2.0"
     hexo-util "^0.6.0"
     js-yaml "^3.6.1"
     lodash "^4.13.1"
     minimatch "^3.0.0"
-    moment "~2.13.0"
-    moment-timezone "^0.5.4"
+    moment "^2.19.2"
+    moment-timezone "^0.5.14"
     nunjucks "^2.4.2"
     pretty-hrtime "^1.0.2"
     strip-indent "^1.0.1"
@@ -2413,9 +2439,9 @@ markdown@~0.5.0:
   dependencies:
     nopt "~2.1.1"
 
-marked@^0.3.5:
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
+marked@^0.3.9:
+  version "0.3.12"
+  resolved "http://registry.npm.taobao.org/marked/download/marked-0.3.12.tgz#7cf25ff2252632f3fe2406bde258e94eee927519"
 
 micromatch@^2.1.5, micromatch@^2.3.7:
   version "2.3.11"
@@ -2490,9 +2516,9 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   dependencies:
     minimist "0.0.8"
 
-moment-timezone@^0.5.4:
-  version "0.5.13"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.13.tgz#99ce5c7d827262eb0f1f702044177f60745d7b90"
+moment-timezone@^0.5.14:
+  version "0.5.14"
+  resolved "http://registry.npm.taobao.org/moment-timezone/download/moment-timezone-0.5.14.tgz#4eb38ff9538b80108ba467a458f3ed4268ccfcb1"
   dependencies:
     moment ">= 2.9.0"
 
@@ -2504,9 +2530,9 @@ moment@^2.10.3:
   version "2.19.1"
   resolved "http://registry.npm.taobao.org/moment/download/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
 
-moment@~2.13.0:
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.13.0.tgz#24162d99521e6d40f99ae6939e806d2139eaac52"
+moment@^2.19.2:
+  version "2.20.1"
+  resolved "http://registry.npm.taobao.org/moment/download/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
 
 morgan@^1.6.1:
   version "1.8.2"
@@ -3371,13 +3397,13 @@ slice-ansi@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-0.0.4.tgz#edbf8903f66f7ce2f8eafd6ceed65e264c831b35"
 
-sneaky@^1.1.9:
-  version "1.1.9"
-  resolved "http://registry.npm.taobao.org/sneaky/download/sneaky-1.1.9.tgz#4f7d1f43cf9ed3b651d490e91577affadb358ade"
+sneaky@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/sneaky/download/sneaky-2.0.0.tgz#ac970b4549a5795821961afb21f64776023ae166"
   dependencies:
     bluebird "^2.9.25"
     chalk "^1.0.0"
-    coffee-script "^1.9.2"
+    coffeescript "^2.1.0"
     commander "^2.8.0"
     graceful-logger "^0.4.3"
     lodash "^3.8.0"
@@ -3535,6 +3561,10 @@ strip-indent@^1.0.1:
   resolved "https://registry.yarnpkg.com/strip-indent/-/strip-indent-1.0.1.tgz#0c7962a6adefa7bbd4ac366460a638552ae1a0a2"
   dependencies:
     get-stdin "^4.0.1"
+
+strip-indent@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/strip-indent/download/strip-indent-2.0.0.tgz#5ef8db295d01e6ed6cbf7aab96998d7822527b68"
 
 strip-json-comments@~2.0.1:
   version "2.0.1"
