@@ -3,7 +3,7 @@ layout:     post
 title:      Hello RxJS
 subtitle:   ""
 date:       2016-10-31
-author:     "龙逸楠"
+author:     "太狼"
 header-img: "/images/reactivex.png"
 tags:
   - JavaScript

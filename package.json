@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "config": "^1.29.2",
+    "cos-nodejs-sdk-v5": "^2.2.6",
     "gulp": "^3.9.1",
     "gulp-replace": "^0.6.1",
     "shx": "^0.2.2",

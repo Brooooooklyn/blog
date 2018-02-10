@@ -3,7 +3,7 @@ layout:     post
 title:      使用 RxJS 掌控异步
 subtitle:   ""
 date:       2017-02-01
-author:     "龙逸楠"
+author:     "太狼"
 header-img: "/images/使用RxJS掌控异步/rxjs.png"
 tags:
   - JavaScript

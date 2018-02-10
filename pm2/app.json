@@ -1,9 +1,0 @@
-{
-  "apps" : [{
-    "name"       : "blog-app",
-    "script"     : "./app.js",
-    "exec_interpreter": "node",
-    "exec_mode"  : "fork_mode",
-    "watch"      : "_posts"
-  }]
-}

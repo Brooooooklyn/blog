@@ -3,7 +3,7 @@ layout:     post
 title:      TypeScript 中的 Decorator & 元数据反射：从小白到专家（部分 IV）
 subtitle:   ""
 date:       2016-04-13
-author:     "龙逸楠"
+author:     "太狼"
 header-img: "/images/decorators-metadata-reflection-in-typescript.png"
 tags:
   - JavaScript
