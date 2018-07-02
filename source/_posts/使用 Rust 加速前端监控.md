@@ -13,8 +13,6 @@ tags:
   - Sentery
 ---
 
-# 使用 Rust 加速前端监控服务
-
 > https://github.com/Brooooooklyn/sourcemap-decoder
 
 <!--more-->

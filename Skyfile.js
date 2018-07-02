@@ -26,7 +26,7 @@ sneaky('release', function () {
   this.description = `Deploy Blog`
   this.path = path
   this.before([
-    'hexo generate',
-    'gulp'
+    'npx hexo generate',
+    'npx gulp'
   ].join(' && '))
 })
