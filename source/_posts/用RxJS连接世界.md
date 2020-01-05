@@ -18,7 +18,7 @@ tags:
 <!--more-->
 
 ## 准备工作
-首先在 https://github.com/teambition/learning-rxjs clone 项目所需的 seed，并`基于 article1 分支 checkout 一个你的 article2 分支`。本文中所有涉及到 RxJS 的代码将全部使用 TypeScript 编写。
+首先在 [learning-rxjs](https://github.com/Brooooooklyn/learning-rxjs) clone 项目所需的 seed，并`基于 article1 分支 checkout 一个你的 article2 分支`。本文中所有涉及到 RxJS 的代码将全部使用 TypeScript 编写。
 这篇文章中，我们将使用 `RxJS` 实现以下几个功能:
 1. 按回车或点击 add button 后发送一个请求，在请求返回结果后再清空输入框，并将返回的结果变成一个 todo item。如果在请求返回结果前又一次按下回车或 add 按钮，对比此时输入框的值和上次发送的值是否相同，如果相同则不进行任何操作，如果不同则取消掉上次的请求并发送新的请求。
 2. 在点击一个 todo item 的时候发送请求，间隔 300 毫秒内的点击，只会发出一次请求。

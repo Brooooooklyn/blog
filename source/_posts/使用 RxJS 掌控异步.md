@@ -23,7 +23,7 @@ tags:
 
 ## 准备工作
 
-在 [learning-rxjs](https://github.com/teambition/learning-rxjs) clone 项目所需的 seed，并基于 `article3-seed` checkout 一个你的 article3 分支。本文中所有涉及到 RxJS 的代码将全部使用 TypeScript 编写。 
+在 [learning-rxjs](https://github.com/Brooooooklyn/learning-rxjs) clone 项目所需的 seed，并基于 `article3-seed` checkout 一个你的 article3 分支。本文中所有涉及到 RxJS 的代码将全部使用 TypeScript 编写。 
 
 这篇文章中，我们将使用 RxJS 实现以下功能:
 
