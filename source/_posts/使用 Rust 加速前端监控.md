@@ -34,12 +34,16 @@ tags:
 }
 ```
 
-Log Service 接受到这个请求以后，将 `Stack` 解析成 JSON : `JSON.parse(decodeURIComponent(Buffer.from(query.stack, 'base64').toString()))`, 解析后的 stack 是这样的 :
+Log Service 接受到这个请求以后，将 **Stack** 解析成 JSON:
+```js
+JSON.parse(decodeURIComponent(Buffer.from(query.stack, 'base64').toString()))
+```
+解析后的 stack 是这样的:
 
 ```json
 [
-  { "filename": "https://arkie-public.oss-cn-hangzhou.aliyuncs.com/js/main.c3600f3f.js", line: 1, column: 334222 },
-  { "filename": "https://arkie-public.oss-cn-hangzhou.aliyuncs.com/js/common.752d2f13.js", line: 1, column: 113242 },
+  { "filename": "https://arkie-public.oss-cn-hangzhou.aliyuncs.com/js/main.c3600f3f.js", "line": 1, "column": 334222 },
+  { "filename": "https://arkie-public.oss-cn-hangzhou.aliyuncs.com/js/common.752d2f13.js", "line": 1, "column": 113242 },
 ]
 ```
 
@@ -104,7 +108,7 @@ Log Service 接受到这个请求以后，将 `Stack` 解析成 JSON : `JSON.par
 
 我做了一个简单的 benchmark, 测试结果如下:
 
-```
+```bash
 $ node benchmark
 
 JavaScript parse time 50794 microseconds
@@ -123,7 +127,7 @@ Rust parse result, Source: webpack:///./src/utils/logger/logger.ts, Line: 56
 
 ##### Hardware Info:
 
-```
+```bash
 ProductName:    Mac OS X
 ProductVersion: 10.13.3
 BuildVersion:   17D47

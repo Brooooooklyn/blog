@@ -3,40 +3,55 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "3.7.1"
+    "version": "4.2.0"
   },
   "scripts": {
-    "build": "shx rm -rf public && npm run copy_files && hexo generate && gulp",
-    "copy_files": "shx cp _config.yml ./themes/apollo/_config.yml && shx cp favicon.png ./themes/apollo/source/favicon.png",
-    "deploy": "sneaky d release",
-    "server": "NODE_ENV=production hexo server",
-    "start": "pm2 start pm2/app.json"
+    "build": "npm run install:theme && shx rm -rf public && npm run copy:pre && hexo generate && npm run copy:post && gulp",
+    "copy:pre": "shx cp _config.yml ./themes/Chic/_config.yml && shx cp favicon.png ./themes/Chic/source/favicon.png && shx cp source/images/avatar.jpeg themes/Chic/source/image/avatar.jpeg",
+    "copy:post": "shx cp source/font.css public/css && shx mkdir -p public/css/woff2 && shx cp -r source/woff2/* public/css/woff2/",
+    "install:theme": "git clone https://github.com/Siricee/hexo-theme-Chic.git themes/Chic",
+    "lint": "remark \"source/**/*.md\"",
+    "server": "NODE_ENV=production hexo server"
   },
   "dependencies": {
-    "hexo": "^3.7.1",
-    "hexo-generator-archive": "^0.1.5",
-    "hexo-generator-category": "^0.1.3",
-    "hexo-generator-feed": "^1.2.2",
-    "hexo-generator-index": "^0.2.1",
-    "hexo-generator-sitemap": "^1.2.0",
-    "hexo-generator-tag": "^0.2.0",
-    "hexo-renderer-jade": "^0.4.1",
-    "hexo-renderer-marked": "^0.3.2",
-    "hexo-renderer-stylus": "^0.3.3",
-    "hexo-server": "^0.3.2"
+    "hexo": "^4.2.0",
+    "hexo-generator-archive": "^1.0.0",
+    "hexo-generator-category": "^1.0.0",
+    "hexo-generator-feed": "^2.2.0",
+    "hexo-generator-index": "^1.0.0",
+    "hexo-generator-sitemap": "^2.0.0",
+    "hexo-generator-tag": "^1.0.0",
+    "hexo-renderer-ejs": "^1.0.0",
+    "hexo-renderer-jade": "^0.5.0",
+    "hexo-renderer-marked": "^2.0.0",
+    "hexo-renderer-stylus": "^1.1.0",
+    "hexo-server": "^1.0.0"
   },
   "devDependencies": {
-    "config": "^1.30.0",
-    "cos-nodejs-sdk-v5": "^2.4.3",
-    "gulp": "^3.9.1",
+    "cssnano": "^4.1.10",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-postcss": "^8.0.0",
     "gulp-replace": "^1.0.0",
-    "shx": "^0.3.1",
-    "sneaky": "^2.0.0",
-    "standard": "^11.0.1"
+    "gulp-rev": "^9.0.0",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1",
+    "remark-cli": "^7.0.1",
+    "remark-lint": "^6.0.5",
+    "remark-lint-fenced-code-flag": "^1.0.3",
+    "shx": "^0.3.2",
+    "sneaky": "^2.0.1",
+    "standard": "^14.3.1"
   },
-  "standard": {
-    "globals": [
-      "sneaky"
+  "lint-staged": {
+    "*.{js,jsx,json,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.md": [
+      "remark",
+      "git add"
     ]
   }
 }

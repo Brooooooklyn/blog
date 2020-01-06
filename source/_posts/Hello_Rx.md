@@ -18,7 +18,7 @@ tags:
 <!--more-->
 
 ## 准备工作
-首先在 https://github.com/teambition/learning-rxjs clone 项目所需的 seed，本文中所有涉及到 RxJS 的代码将全部使用 TypeScript 编写。
+首先在 [learning-rxjs](https://github.com/Brooooooklyn/learning-rxjs) clone 项目所需的 seed，本文中所有涉及到 RxJS 的代码将全部使用 TypeScript 编写。
 
 使用 `npm start ` 启动 seed 项目，这篇文章中我们将实现以下几点功能：
 1. 在输入框中输入字符，在回车的时候将输入框中的文字变成一个 todo item，同时清空输入框中的内容。
