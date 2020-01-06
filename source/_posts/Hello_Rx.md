@@ -5,7 +5,7 @@ subtitle:   ""
 date:       2016-10-31
 author:     "太狼"
 postname:   Hello_RxJS
-header-img: "/images/reactivex.png"
+header-img: "/images/reactivex.jpg"
 tags:
   - JavaScript
   - ECMAScript 6
