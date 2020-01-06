@@ -5,6 +5,8 @@ author: LongYinan
 
 title: 太狼的博客
 
+permalink: :year/:month/:day/:postname/
+
 # navigatior items
 nav:
   Posts: /archives

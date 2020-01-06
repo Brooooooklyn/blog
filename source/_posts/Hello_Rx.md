@@ -4,6 +4,7 @@ title:      Hello RxJS
 subtitle:   ""
 date:       2016-10-31
 author:     "太狼"
+postname:   Hello_RxJS
 header-img: "/images/reactivex.png"
 tags:
   - JavaScript

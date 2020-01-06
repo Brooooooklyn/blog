@@ -4,6 +4,7 @@ title:      用 RxJS 连接世界
 subtitle:   ""
 date:       2016-11-06
 author:     "太狼"
+postname:   connect_world_with_rxjs
 header-img: "/images/用RxJS连接世界/reactivex.png"
 tags:
   - JavaScript

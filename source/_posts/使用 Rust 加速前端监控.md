@@ -4,6 +4,7 @@ title:      使用 Rust 加速前端监控
 subtitle:   ""
 date:       2018-01-27
 author:     "太狼"
+postname:   Rust_frontend_log
 header-img: "/images/使用Rust加速前端监控/head.png"
 tags:
   - Rust

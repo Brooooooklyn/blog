@@ -4,6 +4,7 @@ title:      Rust & WebAssembly 初探
 subtitle:   ""
 date:       2018-07-02
 author:     "太狼"
+postname:   Rust_WebAssembly
 header-img: "/images/wasm/header.png"
 tags:
   - WebAssembly
