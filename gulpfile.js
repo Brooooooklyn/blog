@@ -8,7 +8,7 @@ const cssnano = require('cssnano')
 gulp.task('rev', () => 
   gulp.src([
     './public/css/style.css',
-    './public/css/font.css',
+    './source/custom.css',
   ])
     .pipe(concat('style.css'))
     .pipe(postcss([cssnano()]))
