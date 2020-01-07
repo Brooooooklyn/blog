@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "npm run install:theme && shx rm -rf public && npm run copy:pre && hexo generate && npm run copy:post && gulp",
-    "copy:pre": "shx cp source/post.tmp themes/Chic/layout/_page/post.ejs && shx cp _config.yml ./themes/Chic/_config.yml && shx cp favicon.png ./themes/Chic/source/favicon.png && shx cp source/images/avatar.jpeg themes/Chic/source/image/avatar.jpeg",
+    "copy:pre": "shx cp source/post.tmp themes/Chic/layout/_page/post.ejs && shx cp source/head.tmp themes/Chic/layout/_partial/head.ejs && shx cp _config.yml ./themes/Chic/_config.yml && shx cp favicon.png ./themes/Chic/source/favicon.png && shx cp source/images/avatar.jpeg themes/Chic/source/image/avatar.jpeg",
     "copy:post": "shx mkdir -p public/css/woff2 && shx cp -r source/woff2/* public/css/woff2/",
     "install:theme": "git clone https://github.com/Siricee/hexo-theme-Chic.git themes/Chic",
     "lint": "remark \"source/**/*.md\"",
