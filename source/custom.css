@@ -15,7 +15,7 @@ html {
   color: hotpink;
 }
 
-.post-wrap > .post-content > code {
+.post-wrap .post-content code {
   color: hotpink;
 }
 
