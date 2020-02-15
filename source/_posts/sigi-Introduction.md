@@ -387,7 +387,7 @@ describe('ayanami specs', () => {
 function emitSSREffects<Context>(ctx: Context, modules: Constructor<EffectModule<unkown>>[]) => Promise<StateToPersist>
 ```
 
-`Sigi` 的 `Effect` 在 `SSR` 模式下只需要将对应的  `Decorator` 换成 `SSREffect` 就可以复用了。在 `Server` 端与在`Client` 端不一样的是，`Effect` 对应的 `Payload` 的获取上下文是组件，也就是组件作用域内的 `Props/State/Router` 等一系列客户端特有的状态。而在 `Server` 端，`SSREffect` 提供了 `payloadGetter` option 来在 `Server` 端获取 `payload`。它的签名如下:
+`Sigi` 的 `Effect` 在 SSR 模式下只需要将对应的 Decorator 换成 `SSREffect` 就可以复用了。在 Server 端与在Client 端不一样的是，`Effect` 对应的 **Payload** 的获取上下文是组件，也就是组件作用域内的 **Props/State/Router** 等一系列客户端特有的状态。而在 Server 端，`SSREffect` 提供了 `payloadGetter` option 来在 Server 端获取 `payload`。它的签名如下:
 
 ```ts
 payloadGetter: (ctx: Context, skip: () => typeof SKIP_SYMBOL) => Payload | Promise<Payload> | typeof SKIP_SYMBOL
