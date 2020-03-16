@@ -42,7 +42,7 @@
     "remark-lint-fenced-code-flag": "^1.0.3",
     "shx": "^0.3.2",
     "sneaky": "^2.0.1",
-    "standard": "^14.3.1"
+    "standard": "^14.3.3"
   },
   "lint-staged": {
     "*.{js,jsx,json,md}": [
