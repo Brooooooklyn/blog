@@ -5277,10 +5277,10 @@ remark-cli@^7.0.1:
     remark "^11.0.0"
     unified-args "^7.0.0"
 
-remark-lint-fenced-code-flag@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/remark-lint-fenced-code-flag/-/remark-lint-fenced-code-flag-1.0.3.tgz#349caf7c6dd153d0b6ffb57cbcc67c8277569d2a"
-  integrity sha512-X8Oi6dhfqV9NI3cVg29myvT/NATDHVgRGCpnNz76w7VXwzhBvQtJr1MxZzuPxfWLox+ARCXF2rY9n9hbYFHYTg==
+remark-lint-fenced-code-flag@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/remark-lint-fenced-code-flag/-/remark-lint-fenced-code-flag-1.0.4.tgz#9b0b2f1b0e3a919697d6b24230cd250353b1d5c8"
+  integrity sha512-bkQvlEYco6ZzdzvGPrY7DBsqSq/2mZEmdhpn0KdMEZ9kcKJP4unQdVQys04SKnf9QISqQ446VnQj5Q4E3HMSkQ==
   dependencies:
     unified-lint-rule "^1.0.0"
     unist-util-generated "^1.1.0"
