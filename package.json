@@ -35,7 +35,7 @@
     "gulp-replace": "^1.0.0",
     "gulp-rev": "^9.0.0",
     "husky": "^4.2.3",
-    "lint-staged": "^10.0.9",
+    "lint-staged": "^10.1.0",
     "prettier": "^2.0.2",
     "remark-cli": "^7.0.1",
     "remark-lint": "^6.0.6",
