@@ -34,7 +34,7 @@
     "gulp-postcss": "^8.0.0",
     "gulp-replace": "^1.0.0",
     "gulp-rev": "^9.0.0",
-    "husky": "^4.2.3",
+    "husky": "^4.2.4",
     "lint-staged": "^10.1.2",
     "prettier": "^2.0.4",
     "remark-cli": "^8.0.0",
