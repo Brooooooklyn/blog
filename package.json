@@ -39,7 +39,7 @@
     "prettier": "^2.0.5",
     "remark-cli": "^8.0.0",
     "remark-lint": "^7.0.1",
-    "remark-lint-fenced-code-flag": "^2.0.0",
+    "remark-lint-fenced-code-flag": "^2.0.1",
     "shx": "^0.3.2",
     "sneaky": "^2.0.1",
     "standard": "^14.3.4"
