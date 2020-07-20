@@ -7,10 +7,14 @@ date: 2020-01-07 21:56:24
   <a href="https://jerryzou.com/">咀嚼之味</a>
 </p>
 <p class="friend-column">
-  <img src="https://www.himself65.com/static/01aaf02e16952e2a7ce4b8628c492ade/30d3a/profile-pic.jpg" class="friend-avatar" />
+  <img src="../images/friends/Himself65.jpg" class="friend-avatar" />
   <a href="https://www.himself65.com/">Himself65</a>
 </p>
 <p class="friend-column">
-  <img src="https://sasuke40.github.io/static/ce8bfa44d476d8e731987714a8c0b6f2/30d3a/profile-pic.jpg" class="friend-avatar" />
-  <a href="https://jerryzou.com/">Edward Elric</a>
+  <img src="../images/friends/Edward.jpg" class="friend-avatar" />
+  <a href="https://edward40.com/">Edward Elric</a>
+</p>
+<p class="friend-column">
+  <img src="../images/friends/codesky.png" class="friend-avatar" />
+  <a href="https://www.codesky.me/">Sky Elric</a>
 </p>
