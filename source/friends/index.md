@@ -16,5 +16,5 @@ date: 2020-01-07 21:56:24
 </p>
 <p class="friend-column">
   <img src="../images/friends/codesky.png" class="friend-avatar" />
-  <a href="https://www.codesky.me/">Sky Elric</a>
+  <a href="https://www.codesky.me/">敖天羽</a>
 </p>
