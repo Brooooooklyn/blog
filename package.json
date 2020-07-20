@@ -37,7 +37,7 @@
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
-    "remark-cli": "^8.0.0",
+    "remark-cli": "^8.0.1",
     "remark-lint": "^7.0.1",
     "remark-lint-fenced-code-flag": "^2.0.1",
     "shx": "^0.3.2",
