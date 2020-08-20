@@ -12,11 +12,11 @@ html {
 }
 
 .dark-theme .post-wrap .post-content code {
-  color: hotpink;
+  color: gray;
 }
 
 .post-wrap .post-content code {
-  color: hotpink;
+  color: gray;
 }
 
 .post-content > .friend-column > .friend-avatar {
