@@ -1,10 +1,10 @@
-const path = require(`path`)
+const path = require('path')
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  const blogPost = path.resolve(`./src/templates/blog-post.js`)
+  const blogPost = path.resolve(`./src/templates/blog-post.tsx`)
   const result = await graphql(
     `
       {
@@ -19,12 +19,14 @@ exports.createPages = async ({ graphql, actions }) => {
               }
               frontmatter {
                 title
+                date
+                postname
               }
             }
           }
         }
       }
-    `
+    `,
   )
 
   if (result.errors) {
@@ -37,9 +39,11 @@ exports.createPages = async ({ graphql, actions }) => {
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node
     const next = index === 0 ? null : posts[index - 1].node
-
+    const pathname =
+      formatDate(post.node.frontmatter.date) +
+      `/${post.node.frontmatter.postname}`
     createPage({
-      path: post.node.fields.slug,
+      path: pathname,
       component: blogPost,
       context: {
         slug: post.node.fields.slug,
@@ -61,4 +65,16 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value,
     })
   }
+}
+
+function formatDate(date) {
+  const d = new Date(date)
+  let month = '' + (d.getMonth() + 1)
+  let day = '' + d.getDate()
+  const year = d.getFullYear()
+
+  if (month.length < 2) month = '0' + month
+  if (day.length < 2) day = '0' + day
+
+  return [year, month, day].join('/')
 }

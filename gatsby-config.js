@@ -1,14 +1,17 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `Moonglade`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `太狼`,
+      summary: `Frontend Developer at day, Rustacean at night.`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.app/`,
+    description: `太狼的博客`,
+    siteUrl: `https://lynvv.xyz/`,
     social: {
-      twitter: `kylemathews`,
+      twitter: `Brooooook_lyn`,
+      github: 'Brooooooklyn',
+      resume: `https://resume.lynvv.xyz`,
+      zhihu: `Broooooklyn`,
     },
   },
   plugins: [
@@ -33,7 +36,7 @@ module.exports = {
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 590,
+              maxWidth: 680,
             },
           },
           {
@@ -53,7 +56,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        //trackingId: `ADD YOUR TRACKING ID HERE`,
+        trackingId: `UA-106541132-1`,
       },
     },
     `gatsby-plugin-feed`,
@@ -66,7 +69,7 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/gatsby-icon.png`,
+        icon: `content/assets/gatsby-icon.jpg`,
       },
     },
     `gatsby-plugin-react-helmet`,
@@ -76,8 +79,14 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /assets/,
+        },
+      },
+    },
+    `gatsby-plugin-offline`,
   ],
 }
