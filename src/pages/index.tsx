@@ -6,6 +6,8 @@ import Layout from '../components/layout'
 import SEO from '../components/seo'
 import { rhythm } from '../utils/typography'
 
+import './global.css'
+
 const BlogIndex: React.FC<{ data: any; location: Location }> = ({
   data,
   location,

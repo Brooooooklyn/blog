@@ -87,6 +87,7 @@ module.exports = {
         },
       },
     },
+    `gatsby-plugin-dark-mode`,
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-offline`,
   ],
