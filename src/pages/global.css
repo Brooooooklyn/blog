@@ -3,6 +3,10 @@ body {
   --textNormal: #222;
   --textTitle: #222222;
   --textLink: darkgoldenrod;
+  --quoteColor: hsla(0, 0%, 0%, 0.59);
+  --codeColor: rgba(25, 25, 25, 0.8);
+  --codeBlockBackground: #fdf6e3;
+  --iconColor: black;
   --hr: hsla(0, 0%, 0%, 0.2);
 
   background-color: var(--bg);
@@ -15,6 +19,10 @@ body.dark {
   --textNormal: rgba(255, 255, 255, 0.88);
   --textTitle: wheat;
   --textLink: yellow;
+  --quoteColor: hsla(0, 0%, 100%, 0.6);
+  --codeColor: hsla(0, 0%, 100%, 0.8);
+  --codeBlockBackground: #fdf6e3;
+  --iconColor: white;
   --hr: hsla(0, 0%, 100%, 0.2);
 }
 
@@ -26,4 +34,19 @@ body.dark {
 
 #gatsby-focus-wrapper a {
   color: var(--textLink);
+}
+
+#gatsby-focus-wrapper blockquote {
+  color: var(--quoteColor);
+}
+
+#gatsby-focus-wrapper .gatsby-highlight {
+  background-color: var(--codeBlockBackground);
+}
+
+#gatsby-focus-wrapper .language-text {
+  font-family: 'Iosevka Custom', 'Input Mono', 'Source Code Pro', 'Fira Mono', monospace;
+  color: var(--codeColor);
+  text-shadow: none;
+  background: none;
 }

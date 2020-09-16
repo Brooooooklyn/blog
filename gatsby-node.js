@@ -39,16 +39,20 @@ exports.createPages = async ({ graphql, actions }) => {
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node
     const next = index === 0 ? null : posts[index - 1].node
-    const pathname =
-      formatDate(post.node.frontmatter.date) +
-      `/${post.node.frontmatter.postname}`
+    const pathname = nodeToPathname(post.node)
     createPage({
       path: pathname,
       component: blogPost,
       context: {
         slug: post.node.fields.slug,
-        previous,
-        next,
+        previous: !previous ? null : {
+          ...previous,
+          path: '/' + nodeToPathname(previous),
+        },
+        next: !next ? null : {
+          ...next,
+          path: '/' + nodeToPathname(next),
+        },
       },
     })
   })
@@ -65,6 +69,14 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value,
     })
   }
+}
+
+function nodeToPathname(node) {
+  if (!node) {
+    return null
+  }
+  return formatDate(node.frontmatter.date) +
+      `/${node.frontmatter.postname}`
 }
 
 function formatDate(date) {

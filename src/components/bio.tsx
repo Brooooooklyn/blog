@@ -73,17 +73,17 @@ const Bio = () => {
           display: `flex`,
         }}
       >
-        <Link href={`https://twitter.com/${social.twitter}`}>
-          <Twitter width={36} height={36} />
-        </Link>
         <Link href={social.resume}>
-          <Solution width={36} height={36} />
+          <Solution fill="var(--iconColor)" width={36} height={36} />
         </Link>
         <Link href={`https://github.com/${social.github}`}>
-          <Github width={36} height={36} />
+          <Github fill="var(--iconColor)" width={36} height={36} />
+        </Link>
+        <Link href={`https://twitter.com/${social.twitter}`}>
+          <Twitter fill="#1DA1F2" width={36} height={36} />
         </Link>
         <Link href={`https://www.zhihu.com/people/${social.zhihu}`}>
-          <Zhihu width={36} height={36} />
+          <Zhihu fill="#0084ff" width={36} height={36} />
         </Link>
       </div>
     </>
