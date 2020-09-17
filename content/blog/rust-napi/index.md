@@ -11,11 +11,85 @@ tags:
   - N-API
 ---
 
-## Node native addon，过去和现状
+## NodeJS native addon，过去和现状
 
-N-API 也发布一段时间了，社区中有很多 Native addon 也慢慢迁移到了 N-API，比如 [bcrypt](https://github.com/kelektiv/node.bcrypt.js) , [sse4_crc32](https://github.com/anandsuresh/sse4_crc32) 等。N-API 弥补了之前 `nan` 最痛的**跨 V8 版本 ABI 不兼容**的问题。
+在 NodeJS 的历史中，native addon 一直是一个冷门但是重要的领域。无论是前端工程师还是 NodeJS 开发，都或多或少的依赖一些 native addon。在前端中比较常见的比如 `node-sass`, `node-canvas`, `sharp` 等。后端开发中就更多了，比如 `protobuf` , `bcrypt` ,`crc32` 等。
 
-> 想了解 NodeJS native addon 相关接口的同学可以看 @死月 大佬的博客 [从暴力到 NAN 再到 NAPI——Node.js 原生模块开发方式变迁](https://xcoder.in/2017/07/01/nodejs-addon-history/)。
+Native addon 可以做到 JavaScript 做不到的一些事情，比如调用系统库、打开一个窗口、调用 GPU 指令等。
+
+除此之外，由于 naive 代码 (C/C++/Rust/Nim/D 等) 在性能上对比 `JavaScript` 有较大的优势，所以 native addon 也经常被用来做一些 CPU 密集型的事情，比如区块链和加密货币相关领域中经常提供 NodeJS 的 npm package 作为对外 API，而底层的计算逻辑全部都用 C++ 实现。
+
+### 原生模块的本质
+
+> 这个章节大部分内容来自 [从暴力到 NAN 再到 NAPI——Node.js 原生模块开发方式变迁](https://xcoder.in/2017/07/01/nodejs-addon-history/)
+
+- `.node ` 文件
+- 是一个二进制文件
+- 是一个动态链接库 (Windows `dll`/Linux `so`/Unix `dylib`)
+
+NodeJS 对 native addon 开发侧暴露的是 ABI:
+
+> ABI: In [computer software](https://en.wikipedia.org/wiki/Computer_software), an **application binary interface** (**ABI**) is an [interface](<https://en.wikipedia.org/wiki/Interface_(computing)>) between two binary program modules
+
+下面是 NodeJS 源码中加载 native addon 的代码:
+
+```cpp
+void DLOpen(const FunctionCallbackInfo<Value>& args) {
+  Environment* env = Environment::GetCurrent(args);
+  uv_lib_t lib;
+
+  ...
+
+  Local<Object> module = args[0]->ToObject(env->isolate());
+  node::Utf8Value filename(env->isolate(), args[1]);
+
+  // 使用 uv_dlopen 加载链接库
+  const bool is_dlopen_error = uv_dlopen(*filename, &lib);
+  node_module* const mp = modpending;
+  modpending = nullptr;
+
+  ...
+
+  // 将加载的链接库句柄转移到 mp 上
+  mp->nm_dso_handle = lib.handle;
+  mp->nm_link = modlist_addon;
+  modlist_addon = mp;
+
+  Local<String> exports_string = env->exports_string();
+
+  // exports_string 其实就是 `"exports"`
+  // 这句的意思是 `exports = module.exports`
+  Local<Object> exports = module->Get(exports_string)->ToObject(env->isolate());
+
+  if (mp->nm_context_register_func != nullptr) {
+    mp->nm_context_register_func(exports, module, env->context(), mp->nm_priv);
+  } else if (mp->nm_register_func != nullptr) {
+    mp->nm_register_func(exports, module, mp->nm_priv);
+  } else {
+    uv_dlclose(&lib);
+    env->ThrowError("Module has no declared entry point.");
+    return;
+  }
+}
+```
+
+![DLOpen 流程图](./native-flow.png)
+
+#### 远古时代
+
+直接 include `v8` 和 `libuv` 相关的 `.h` 文件，直接编译。`v8` 相关的 `API` 变化非常快，导致用这种方式封装的 native addon 无法跨 node 版本使用。
+
+#### NAN
+
+> Native Abstractions for Node.js
+
+NAN 将 `v8/libuv` 相关的 API 进行了封装，对外是稳定的抽象层 API (但却无法保证是 ABI 稳定)。用 `NAN` 进行封装的 native addon 几乎无法通过预编译的方式进行分发，因为跨 Node 版本底层 `v8/libuv` API 变化之后需要对源码进行重新编译才能使用。所以这就是为什么很多 native addon 在 npm install 后还要调用一堆工具链在本地进行编译才能使用，以及为什么有时候 node 版本升级之后之前安装好的 node_modules 就无法直接使用了。
+
+#### N-API
+
+自从 Node.js v8.0.0 发布之后，Node.js 推出了全新的用于开发 C++ 原生模块的接口，N-API。本质其实是将 `NAN` 这层抽象挪到了 `node` 源码中，在 node 编译的时候就编译好这层对外抽象，这样 N-API 对外就是稳定的 ABI 了。
+
+N-API 也发布一段时间了，社区中有很多 Native addon 也慢慢迁移到了 N-API，比如 [bcrypt](https://github.com/kelektiv/node.bcrypt.js) , [sse4_crc32](https://github.com/anandsuresh/sse4_crc32) 等。N-API 弥补了之前 [nan](https://github.com/nodejs/nan) 最痛的**跨 V8 版本 ABI 不兼容**的问题。
 
 但即使是迁移到了 N-API，编写 native addon 也有一些编写代码之外的痛点。
 
@@ -27,7 +101,7 @@ N-API 也发布一段时间了，社区中有很多 Native addon 也慢慢迁移
 
 需要使用的用户自行安装 `node-gyp`，`cmake` `g++` 等构建工具，在开发阶段这些都不是什么问题，但随着 `Docker` 的普及，在特定的 `Docker` 环境中安装一堆编译工具链实在是很多团队的噩梦。而且这个问题如果处理不好的话，还会白白增加 `Docker image` 的体积 (其实这个问题是可以通过构建 Docker image 之前就在一个专门的 Builder image 里面编译完来解决，但是我在各种公司聊下来鲜有团队会这样做)。
 
-#### 2. 只分发 `JavaScript` 代码，`postinstall` 下载对应产物
+#### 2. 只分发 JavaScript 代码，postinstall 下载对应产物
 
 有些 native addon 的构建依赖实在是太复杂了，让普通的 Node 开发者在开发阶段安装全套的编译工具不太现实。还有一种情况是，native addon 本身太复杂了，可能编译一次需要非常多的时间，库的作者肯定不希望大家在使用他的库的时候仅安装就要花掉半小时吧。
 
@@ -101,7 +175,24 @@ N-API 也发布一段时间了，社区中有很多 Native addon 也慢慢迁移
 
 ## When Rust met N-API
 
-`Rust`相信不用我过多介绍(能点进来这篇文章的应该对 Rust 都有一定的了解了吧)。
+![Back to the metal: Top 3 Programming language to develop Big Data  frameworks | by Md Kamaruzzaman | Towards Data Science](./rust.png)
+
+- 零成本抽象
+- 内存安全
+- 实用
+
+Rust 诞生以来迅速被很多商业公司使用
+
+- Amazon，使用 Rust 作为构建工具。
+- Atlassian，在后端使用 Rust。
+- Dropbox，在前后端均使用了 Rust。
+- Facebook，使用 Rust 重写了源码管理工具。
+- Google，在 Fuchsia 项目中使用了 Rust。
+- Microsoft，在 Azure IoT 网络上部分使用了 Rust。
+- npm，在其核心服务上使用了 Rust。
+- RedHat，使用 Rust 创建了新的存储系统。
+- Reddit，使用 Rust 处理评论。
+- Twitter，在构建团队中使用 Rust。
 
 用 `Rust` 替代 `C/C++` 看起来是一个很美好的选择，Rust 有现代化的包管理器: `Cargo` ，经过这么多年的发展在生态上尤其是与 `NodeJS` 重叠的 **服务端开发** 、**跨平台 CLI 工具**、**跨平台 GUI **(electron) 等领域有了非常多的沉淀。比起 `C/C++` 生态，`Rust` 生态的包属于**_只要有，都可以直接用_** 的状态，而 `C/C++` 生态中的第三方代码则属于 **_肯定有，但不一定能直接用_** 的状态。这种状态下，用 `Rust` 开发 Node addon 少了很多选择，也少了很多选择的烦恼。
 
@@ -117,17 +208,7 @@ NodeJS 官方为 N-API 提供了相应的头文件，作为开发 Node addon 时
 
 在早夭的 [xray](https://github.com/atom-archive/xray) 项目中，最早的编辑器架构并非后来的类似 `LSP` 的 `Client/Server` 架构，而是 `NodeJS` 直接调用 `Rust` 编写的 addon。所以在早期，xray 有一个非常粗糙的 `Rust N-API` 实现。
 
-几年前我将这些代码从 xray 项目的 `Git` 的历史中找回来了，并且加以封装和改进：[napi-rs](https://github.com/napi-rs/napi-rs)，将大部分常用的 N-API 接口封装成了 `Safe Rust` 接口，并为它们编写了全方位的单元测试，它可以作为使用 `Rust` 编写 native addon 的重要基石。
-
-### 选择分发方式
-
-`Rust` 作为出了名的编译极缓慢的语言，分发源码显然是不现实的，而且也不可能要求使用的开发者全部都安装 `Rust` 全家桶。
-
-通过 `postinstall` 下载作为一种比较简单但是对使用者极不友好的方式，我觉得也不应该继续提倡使用。
-
-那最终对于使用 `Rust` 编写的 `NodeJS native addon`， 我们最好的选择就是使用**_不同平台分别分发 addon_** 的形式。
-
-在 [napi-rs](https://github.com/napi-rs/napi-rs) 项目中，我封装了简单的 `cli` 工具，用来帮助使用 `napi-rs` 的开发者管理从本地开发到 `CI` 发布的全流程。下面我们来用一个简单而实际的例子介绍一下如何使用 `Rust` 和 `napi-rs` 开发、测试、发布一个 NodeJS native addon。
+几年前我将这些代码从 xray 项目的 `Git` 的历史中找回来了，并且加以封装和改进：[napi-rs](https://github.com/napi-rs/napi-rs)，将大部分常用的 N-API 接口封装成了 `Safe Rust ` 接口，并为它们编写了全方位的单元测试，它可以作为使用 `Rust` 编写 native addon 的重要基石。
 
 ### 用 `Rust` 能做哪些事情
 
@@ -135,7 +216,7 @@ NodeJS 官方为 N-API 提供了相应的头文件，作为开发 Node addon 时
 
 ![img](./goldan.png)
 
-Native code 在一些纯计算的场景比 js 快非常多，但是一旦使用 `N-API` 与 node 的 js 引擎打交道，就会有非常大的开销(相对计算而言)。
+Native code （C/C++/Rust）在一些纯计算的场景比 js 快非常多，但是一旦使用 `N-API` 与 node 的 js 引擎打交道，就会有非常大的开销(相对计算而言)。
 
 比如在 js 里面设置一个对象的属性会比在 native 里面使用 `N-API` 设置一个对象的属性快好几倍
 
@@ -193,7 +274,17 @@ fn add_one(ctx: CallContext) -> Result<JsNumber> {
 
 所以下面让我们到 [crates.io](https://crates.io/) 中找一个简单的支持 SIMD 功能库，将它封装成 node native addon，来演示一下如何快乐的使用 `Rust` + `N-API` 做一些高性能并且实用的工具库。
 
-## `@napi-rs/fast-escape`
+### 选择分发方式
+
+`Rust` 作为出了名的编译极缓慢的语言，分发源码显然是不现实的，而且也不可能要求使用的开发者全部都安装 `Rust` 全家桶。
+
+通过 `postinstall` 下载作为一种比较简单但是对使用者极不友好的方式，我觉得也不应该继续提倡使用。
+
+那最终对于使用 `Rust` 编写的 `NodeJS native addon`， 我们最好的选择就是使用**_不同平台分别分发 addon_** 的形式。
+
+在 [napi-rs](https://github.com/napi-rs/napi-rs) 项目中，我封装了简单的 `cli` 工具，用来帮助使用 `napi-rs` 的开发者管理从本地开发到 `CI` 发布的全流程。下面我们来用一个简单而实际的例子介绍一下如何使用 `Rust` 和 `napi-rs` 开发、测试、发布一个 NodeJS native addon。
+
+### `@napi-rs/fast-escape`
 
 先上链接: https://github.com/napi-rs/fast-escape
 
@@ -213,7 +304,7 @@ extern crate napi;
 extern crate napi_derive;
 
 use napi::{CallContext, Env, JsString, Module, Result};
-use v_htmlescape::escape;
+use v_htmlescape::escape; // import
 
 register_module!(escape, init);
 
@@ -226,9 +317,9 @@ fn init(module: &mut Module) -> Result<()> {
 fn escape_html(ctx: CallContext) -> Result<JsString> {
   let input = ctx.get::<JsString>(0)?;
 
-  ctx
+  return ctx
     .env
-    .create_string_from_std(escape(input.as_str()?).to_string())
+    .create_string_from_std(escape(input.as_str()?).to_string());
 }
 ```
 
@@ -264,7 +355,11 @@ const { loadBinding } = require('@node-rs/helper')
  * loadBinding helper will load `escape.[PLATFORM].node` from `__dirname` first
  * If failed to load addon, it will fallback to load from `@napi-rs/escape-[PLATFORM]`
  */
-module.exports = loadBinding(__dirname, 'escape', '@napi-rs/escape')
+module.exports = loadBinding(
+  __dirname,
+  'escape',
+  '@napi-rs/escape-[linux|darwin-win32]',
+)
 ```
 
 这样我们就能愉快的通过 `index.js` 使用封装好的 `escapeHTML` 函数了。
@@ -311,7 +406,7 @@ javascript x 1,951,484 ops/sec ±0.31% (92 runs sampled)
 Escape html benchmark # Small input bench suite: Fastest is napi#buff
 ```
 
-果然，`Buffer` 风格的 API 性能更好一些。
+可以看到 `Buffer` 比 `String` 相关 N-API 性能更好一些。
 
 而一般高强度的计算任务，我们一般都希望把它 `spawn` 到另一个线程，以免阻塞主线程的执行。（`escape` 这个例子可能不太合适，因为这里的计算开销还是挺小的)。使用 `napi-rs` 也可以比较轻松的完成这个任务:
 
@@ -374,7 +469,7 @@ asyncEscapeHTMLBuf(Buffer.from('<div>1</div>')).then((escaped) =>
 
 仓库中配置好的 `Github actions` 会自动帮你将 `native` 模块分别通过不同的 npm 包发布 [Build log](https://github.com/napi-rs/fast-escape/actions/runs/247349235)
 
-当然如果你真的要做这些事情，有几个前置修改需要做:
+当然如果你是从 package-template 开始从零开始做这些事情，有几个前置修改需要做:
 
 - 全局替换 `pacakge-tempalte` 到你的包名 (后面会提供 CLI 来帮你做这件事情)
 - 修改 `.github/workflows/CI.yml` 中 `Upload artifact` 步骤中的 `package-template` ，新的值需要和 `package.json` 中的 `napi.name` 字段保持一致 (后面也会提供 CLI 来帮你做这件事)
@@ -384,7 +479,7 @@ asyncEscapeHTMLBuf(Buffer.from('<div>1</div>')).then((escaped) =>
 
 ## END
 
-`napi-rs` 从诞生到现在，已经形成了一定规模的生态了，[node-rs](https://github.com/napi-rs/node-rs) 仓库集中封装了一些常见的 native addon (deno_lint 目前还在非常初始的阶段)，[swc-node](https://github.com/Brooooooklyn/swc-node) 已经有很多项目用起来了，而由于 `swc-node` 的成功，`swc` 的作者最近也从 `neon` 迁移到了 `napi-rs` 上: https://github.com/swc-project/swc/pull/1009
+` napi-rs` 从诞生到现在，已经形成了一定规模的生态了，[node-rs](https://github.com/napi-rs/node-rs) 仓库集中封装了一些常见的 native addon (deno_lint 目前还在非常初始的阶段)，[swc-node](https://github.com/Brooooooklyn/swc-node) 已经有很多项目用起来了，而由于 `swc-node` 的成功，`swc` 的作者最近也从 `neon` 迁移到了 `napi-rs` 上: https://github.com/swc-project/swc/pull/1009
 
 这次 `migrate` 让 `swc` 的 API 性能**快了 2 倍** [swc#852](https://github.com/swc-project/swc/issues/852) (这也是目前 napi-rs 对比 neon 的优势之一)，并且在 CI 和发布管理上节省了很多代码量。
 
