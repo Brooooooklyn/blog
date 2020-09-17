@@ -9,8 +9,7 @@ tags:
   - Rust
   - Neon Bindings
   - NodeJS
-  - Binary
-  - Sentery
+  - Sentry
 ---
 
 > https://github.com/Brooooooklyn/sourcemap-decoder
@@ -173,7 +172,3 @@ EOF
 在 CI 的 Docker Image build 的时候需要 [替换 Rust 下载源](https://github.com/Brooooooklyn/sourcemap-decoder/blob/master/Dockerfile#L30) 以及 [替换 Rustup 源](https://github.com/Brooooooklyn/sourcemap-decoder/blob/master/Dockerfile#L34-L35)
 
 详情请参考 [README](https://github.com/Brooooooklyn/sourcemap-decoder/blob/master/README.md)
-
-### More Info
-
-因为 Rust 在公司内成功应用，所以我们决定后面会尽量迁移一些 CPU 密集型的任务到 `Rust` 上，比如用 https://github.com/nical/lyon 替代 puppeteer 做海报的后端渲染，如果你有兴趣的话，欢迎联系我！

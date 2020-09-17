@@ -486,15 +486,3 @@ asyncEscapeHTMLBuf(Buffer.from('<div>1</div>')).then((escaped) =>
 最后欢迎大家试用 [napi-rs](https://github.com/napi-rs/napi-rs) ，包括 [strapi](https://github.com/strapi/strapi) 在内的很多大型 NodeJS 项目 (包括字节跳动内部的 NodeJS 基础库，支撑的总 QPS 可能超过 10w) 已经用上 `napi-rs` 封装的库了，所以它在代码上已经 production ready 了。
 
 后面我会持续建设它的文档和周边工具链，让它更好用更易用，所以大家也不要忘了给个 Star 或者 **Sponsor**!
-
-## 招聘
-
-我所在的团队是字节跳动 IES 前端架构，基础体验方向。IES 中文名称是互娱研发，也就是抖音、tiktok 等超大体量产品所在的部门。我们团队计划在前端、hybrid 、flutter、自研引擎、小程序、NodeJS 等多个方面做很多关于性能、体验、监控相关的事情。
-
-最近我们有计划通过 `swc` 和 `N-API` 做一些源码扫描的工具，预计可以比基于 [acorn](https://github.com/acornjs/acorn) 的扫描逻辑快 10~100 倍。后面的规划中，也会有大量涉及到 `Rust` 与前端/NodeJS 结合的领域可以去开拓，欢迎大家踊跃联系我给我投简历！！！
-
-我的个人微信在: https://github.com/Brooooooklyn
-
-你也可以直接通过我的内推链接投递: https://job.toutiao.com/s/JSea1oG
-
-也可以发邮件到我的邮箱投递: lynweklm@gmail.com
