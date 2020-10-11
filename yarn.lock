@@ -3331,7 +3331,7 @@ buffer-alloc-unsafe@^1.1.0:
   resolved "https://registry.npmjs.org/buffer-alloc-unsafe/-/buffer-alloc-unsafe-1.1.0.tgz#bd7dc26ae2972d0eda253be061dba992349c19f0"
   integrity sha512-TEM2iMIEQdJ2yjPJoSIsldnleVaAk1oW3DBVUykyOLsEsFmEc9kn+SFFPz+gl54KQNxlDnAwCXosOS9Okx2xAg==
 
-buffer-alloc@^1.1.0, buffer-alloc@^1.2.0:
+buffer-alloc@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/buffer-alloc/-/buffer-alloc-1.2.0.tgz#890dd90d923a873e08e10e5fd51a57e5b7cce0ec"
   integrity sha512-CFsHQgjtW1UChdXgbyJGtnm+O/uLQeZdtbDo8mfUgYXCHSM1wgrVxXm6bSyrUuErEb+4sYVGCzASBRot7zyrow==
@@ -6578,10 +6578,10 @@ gatsby-plugin-react-svg@^3.0.0:
   dependencies:
     svg-react-loader "^0.4.4"
 
-gatsby-plugin-sharp@^2.6.39:
-  version "2.6.39"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-sharp/-/gatsby-plugin-sharp-2.6.39.tgz#09694bf631f05a46caf0ed122a23ca63338f51b2"
-  integrity sha512-ug/FXUK9TWvPouVSM+bOC2E+s88OI8VSR5EJhOZUEJTyyJ7KjVNiuCa9YJ+vQzJFrxcKdbukWDt+zwoo2kkJ6g==
+gatsby-plugin-sharp@^2.6.40:
+  version "2.6.40"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-sharp/-/gatsby-plugin-sharp-2.6.40.tgz#075f0d43e582ccb2093eb0a9c058798a55108c95"
+  integrity sha512-8HJMUFCwn70LS2eKttvQiakL+5PXhwthsaWEQnzsoj7C9fTg4gRi3ZtlQfII4kBq1pnhwFo5tQ30PtxtvVu5WA==
   dependencies:
     "@babel/runtime" "^7.11.2"
     async "^3.2.0"
@@ -9532,13 +9532,6 @@ markdown-table@^2.0.0:
   integrity sha512-Ezda85ToJUBhM6WGaG6veasyym+Tbs3cMAw/ZhOPqXiYsr0jgocBV3j3nx+4lk47plLlIqjwuTm/ywVI+zjJ/A==
   dependencies:
     repeat-string "^1.0.0"
-
-md5-file@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.npmjs.org/md5-file/-/md5-file-3.2.3.tgz#f9bceb941eca2214a4c0727f5e700314e770f06f"
-  integrity sha512-3Tkp1piAHaworfcCgH0jKbTvj1jWWFgbvh2cXaNCgHwyTCBxxvD1Y04rmfpvdPm1P4oXMOpm6+2H7sr7v9v8Fw==
-  dependencies:
-    buffer-alloc "^1.1.0"
 
 md5-file@^5.0.0:
   version "5.0.0"
