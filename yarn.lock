@@ -6669,16 +6669,16 @@ gatsby-plugin-dark-mode@^1.1.2:
   dependencies:
     prop-types "^15.5.7"
 
-gatsby-plugin-feed@^2.5.15:
-  version "2.5.15"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-feed/-/gatsby-plugin-feed-2.5.15.tgz#bd345e9f0a306ce2cd966a3aafbabc857efc0b1d"
-  integrity sha512-quXSm2zSxUBCMgtJ1FZjgk5xQE7a+5up4h2PKU1pBm8Mi1GsOCs6brIjF/rSqObFh5CUGT8S0Nw/nCQsr3lm0Q==
+gatsby-plugin-feed@^2.5.17:
+  version "2.5.17"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-feed/-/gatsby-plugin-feed-2.5.17.tgz#a6f184b8e67863c18b42d64a9561fce6b1437299"
+  integrity sha512-E4k6nmfkoKhsSg42+8tQ0s9OkrSnnDUu2ZvGeM+NeeQIjzJeIF78IiPzgsK8H7WUlB1ID1UKog7Gunw11wu/KA==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@hapi/joi" "^15.1.1"
     common-tags "^1.8.0"
     fs-extra "^8.1.0"
-    gatsby-plugin-utils "^0.2.34"
+    gatsby-plugin-utils "^0.2.37"
     lodash.merge "^4.6.2"
     rss "^1.2.2"
 
