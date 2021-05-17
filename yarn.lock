@@ -5924,16 +5924,16 @@ gatsby-plugin-dark-mode@^1.1.2:
   dependencies:
     prop-types "^15.5.7"
 
-gatsby-plugin-feed@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-feed/-/gatsby-plugin-feed-3.4.0.tgz#73f85b6e2237e8d14689c53235c2851a08bd860e"
-  integrity sha512-mzpWBSJIm+B8A1ctqPkyRjHwT7LuP5fHWyqPhQElm+W1WS05vED8m/ZGeDVkBQsAtaw+kLSHUQilzT3r6TeKaQ==
+gatsby-plugin-feed@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-feed/-/gatsby-plugin-feed-3.5.0.tgz#fac3c04d9e5a862b0aa672fdba9c2e336f85aa9d"
+  integrity sha512-XNJYOOQJnM3NW903QfXR6CCZdJRKZbRPtBAeF9SnpOyBX3B3BaLqy4ko9eGq8iXYyLMOmcqhfeG9B9wzzhhp6w==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@hapi/joi" "^15.1.1"
     common-tags "^1.8.0"
     fs-extra "^9.1.0"
-    gatsby-plugin-utils "^1.4.0"
+    gatsby-plugin-utils "^1.5.0"
     lodash.merge "^4.6.2"
     rss "^1.2.2"
 
@@ -6054,10 +6054,10 @@ gatsby-plugin-typography@^3.4.0:
   dependencies:
     "@babel/runtime" "^7.12.5"
 
-gatsby-plugin-utils@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-utils/-/gatsby-plugin-utils-1.4.0.tgz#536bb2d11ca2eabbaef87a17c9401282fbb3f386"
-  integrity sha512-8weadJIuQr12QS67qSifFoCXf1F8WPM0kJ3bkDJlAf8zfNLnWnbP3oD0YPUOFWE3kW0AH350EzUcmQKpSko/Yw==
+gatsby-plugin-utils@^1.4.0, gatsby-plugin-utils@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-utils/-/gatsby-plugin-utils-1.5.0.tgz#793b0796ea225cf3c75871d06f5e75e3c3fa82c9"
+  integrity sha512-IqCXOGTC+WRtzLUhEbJzR9RlumDGtN/xmsl41AOgfeJvfdeXiomm9nrlCs915XDZh/fYa5MbRpf7Xu4S3skhLA==
   dependencies:
     joi "^17.2.1"
 
@@ -6212,7 +6212,7 @@ gatsby-source-filesystem@^3.4.0:
     valid-url "^1.0.9"
     xstate "^4.14.0"
 
-gatsby-telemetry@^2.4.0, gatsby-telemetry@^2.4.1:
+gatsby-telemetry@^2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/gatsby-telemetry/-/gatsby-telemetry-2.4.1.tgz#bc1b726cbf207193b6eefddc78455d65bea4e4d3"
   integrity sha512-VLlZvFCdpCCT0mxnSK1UE/uD7NY/7Sj5vwvv09WRDlIGw6qaUJFWLIav99WXocbIN0FvYKKGIbmIUlmBnhxzVA==
