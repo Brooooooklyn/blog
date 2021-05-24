@@ -5805,7 +5805,7 @@ gatsby-cli@^3.5.0:
     yoga-layout-prebuilt "^1.9.6"
     yurnalist "^2.1.0"
 
-gatsby-core-utils@^2.4.0, gatsby-core-utils@^2.5.0:
+gatsby-core-utils@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/gatsby-core-utils/-/gatsby-core-utils-2.5.0.tgz#70b3aabf184a39c790e12af8001be4164fd8afa6"
   integrity sha512-YbKv7FLpeTCts28bv0H2lSuHrKgUxnsC1ZG1PPydOheQgPW9G8pdNlYvwZzGJmmS7rBcC/w859ss90wlvF6GEw==
@@ -6111,10 +6111,10 @@ gatsby-remark-images@^5.2.0:
     unist-util-select "^3.0.4"
     unist-util-visit-parents "^3.1.1"
 
-gatsby-remark-prismjs@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/gatsby-remark-prismjs/-/gatsby-remark-prismjs-5.2.0.tgz#55a9e8c4c7b77f2349e928f1120b9acf3194cd6e"
-  integrity sha512-RZwxZsm3040p6CuAnt2NeF6/s7tFD/ei4m73uoWjr42Rat0XL5sAcPXjS1rbAqtQkb4w3B5opLxI3nt3opIYnQ==
+gatsby-remark-prismjs@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-prismjs/-/gatsby-remark-prismjs-5.2.1.tgz#8ddc99b9ad0a56cf144abeae0bc2998f6d57b7ce"
+  integrity sha512-nQ+/1mLlMo+ytaOxqdT7KBfNKsKkzrEH1KN7ug2fCOEztolqfUv4R6B+jzeI3PpDiJ4aP2yoOtfvLlBjuR3sSQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
     parse-numeric-range "^1.2.0"
@@ -6160,7 +6160,7 @@ gatsby-source-filesystem@^3.5.0:
     valid-url "^1.0.9"
     xstate "^4.14.0"
 
-gatsby-telemetry@^2.4.1, gatsby-telemetry@^2.5.0:
+gatsby-telemetry@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/gatsby-telemetry/-/gatsby-telemetry-2.5.0.tgz#ea3519afd9e905d6a6b1d01209e8df048764be1e"
   integrity sha512-PbyYw74t/RLVbEWicjAdrCMttV1GSbuHZit0PsVPqqwNlL1LalJa/V7lcVMqqGrEbkB+fUoKkk1u2o+TDgvIng==
