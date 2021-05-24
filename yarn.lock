@@ -5805,7 +5805,7 @@ gatsby-cli@^3.5.0:
     yoga-layout-prebuilt "^1.9.6"
     yurnalist "^2.1.0"
 
-gatsby-core-utils@^2.4.0, gatsby-core-utils@^2.5.0:
+gatsby-core-utils@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/gatsby-core-utils/-/gatsby-core-utils-2.5.0.tgz#70b3aabf184a39c790e12af8001be4164fd8afa6"
   integrity sha512-YbKv7FLpeTCts28bv0H2lSuHrKgUxnsC1ZG1PPydOheQgPW9G8pdNlYvwZzGJmmS7rBcC/w859ss90wlvF6GEw==
@@ -6160,7 +6160,7 @@ gatsby-source-filesystem@^3.5.0:
     valid-url "^1.0.9"
     xstate "^4.14.0"
 
-gatsby-telemetry@^2.4.1, gatsby-telemetry@^2.5.0:
+gatsby-telemetry@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/gatsby-telemetry/-/gatsby-telemetry-2.5.0.tgz#ea3519afd9e905d6a6b1d01209e8df048764be1e"
   integrity sha512-PbyYw74t/RLVbEWicjAdrCMttV1GSbuHZit0PsVPqqwNlL1LalJa/V7lcVMqqGrEbkB+fUoKkk1u2o+TDgvIng==
@@ -6222,10 +6222,10 @@ gatsby-transformer-sharp@^3.5.0:
     semver "^7.3.4"
     sharp "^0.28.0"
 
-gatsby@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-3.5.0.tgz#a0e7dd4310c585120d8b1782a3d1f8a3272b580e"
-  integrity sha512-xQXHC89ybLCYPWA0TTsY6my8mLCrtH2M/UKOrXaiU7DeNwLb7pLYJ915lo+Dtjj5yu43zMuLL/+jIDLm3FiOmQ==
+gatsby@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-3.5.1.tgz#f32a1d01ac1cdda4ff431c25985a1da9d04ebf1d"
+  integrity sha512-wmhU5dsm2Is/aFgNyxjnuVMNK1chP0Kg5cS15JWAk593xk/hUj0i/lomirNmzvl+2Yk2LC8KZ0M/8OM4cocrKg==
   dependencies:
     "@babel/code-frame" "^7.10.4"
     "@babel/core" "^7.12.3"
