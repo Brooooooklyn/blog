@@ -6160,7 +6160,7 @@ gatsby-source-filesystem@^3.5.0:
     valid-url "^1.0.9"
     xstate "^4.14.0"
 
-gatsby-telemetry@^2.5.0, gatsby-telemetry@^2.6.0:
+gatsby-telemetry@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/gatsby-telemetry/-/gatsby-telemetry-2.6.0.tgz#6e18861d31769a46b797fd7d39cc322368fc71a8"
   integrity sha512-ENrhT4tkETj9Gq48d+ziiyNTX8Q8/5EyqqWvDUTCSefeHV5xpBclJ+CEnxZkmkEa/QSoBCpjws2VbxnTmRwjWA==
@@ -6208,10 +6208,10 @@ gatsby-transformer-remark@^4.3.0:
     unist-util-select "^3.0.4"
     unist-util-visit "^2.0.3"
 
-gatsby-transformer-sharp@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/gatsby-transformer-sharp/-/gatsby-transformer-sharp-3.5.0.tgz#7c033eecf06672cad9c5ec20cb11b09fa9e887bf"
-  integrity sha512-hgmm2PGfkvTOKBUWWFWVZfPFEaDMagDNLk9hJexkZwpnML+ambxUnwt2s3mMMR0iNh67WJGrg+UDg43PvyNcwA==
+gatsby-transformer-sharp@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/gatsby-transformer-sharp/-/gatsby-transformer-sharp-3.6.0.tgz#f62a80e9631ccdc248392482877cfa3dc29512e5"
+  integrity sha512-tEN04fbU4LJLZasPiLYronFAkWf2hCiKz6PrEbBNkPWeurjz3i9gp+pCXh0JJa7ccrq0geidtgPSaL7JztbXdQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
     bluebird "^3.7.2"
