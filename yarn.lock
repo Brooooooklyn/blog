@@ -1153,7 +1153,7 @@
     core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.10.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.14.0", "@babel/runtime@^7.3.4", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.10.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.14.0", "@babel/runtime@^7.3.4", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4":
   version "7.14.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.5.tgz#665450911c6031af38f81db530f387ec04cd9a98"
   integrity sha512-121rumjddw9c3NCQ55KGkyE1h/nzWhU/owjhw0l4mQrkzz4x9SGS1X8gFLraHwX7td3Yo4QTL+qj0NcIzN87BA==
@@ -6293,10 +6293,10 @@ gatsby-recipes@^0.18.1:
     xstate "^4.9.1"
     yoga-layout-prebuilt "^1.9.6"
 
-gatsby-remark-copy-linked-files@^4.4.1:
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/gatsby-remark-copy-linked-files/-/gatsby-remark-copy-linked-files-4.4.1.tgz#6339926b7746792c7b765096343951fd49875f0d"
-  integrity sha512-w8jUHvKmz0g6EPtMpy5jha2SyKKPzUb7PWm+PEr4K1uEpuSI2T/JRMdwP4W+DmIM7AuRjZRLPT/wqQVxKWYlvw==
+gatsby-remark-copy-linked-files@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-copy-linked-files/-/gatsby-remark-copy-linked-files-4.5.0.tgz#8ebed9a2462878d08e7dd4d0045462b5b466b5fd"
+  integrity sha512-1n7nYRFCXZ5EeVRzOx65oDp46A8MK8YrGHSCrtRGV+YlzRQ82jVy6IvGWVm4RmTypGSyKuhMaZvRNbLBPha5mQ==
   dependencies:
     "@babel/runtime" "^7.14.0"
     cheerio "^1.0.0-rc.9"
