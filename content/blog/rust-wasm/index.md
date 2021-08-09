@@ -45,7 +45,7 @@ WebAssembly 简要来说有以下三个特点:
     })
   ```
 
-  或者在 NodeJS 中使用 `fs.readFile` 加载:
+  或者在 Node.js 中使用 `fs.readFile` 加载:
 
   ```js
   const bytes = fs.readFileSync('hello.wasm')
@@ -179,7 +179,7 @@ asm.js 高性能的秘密在于引擎会直接将符合 asm.js 规范的代码�
 
 - 生成的 wasm 体积太大
 
-  准确来说这并不是 wasm pack 工具的问题，而是 Rust 语言的问题。目前一个空项目打包出来的体积大概是 `250kb` 左右，当然这对于 NodeJS 来说就不是什么大问题了。
+  准确来说这并不是 wasm pack 工具的问题，而是 Rust 语言的问题。目前一个空项目打包出来的体积大概是 `250kb` 左右，当然这对于 Node.js 来说就不是什么大问题了。
 
 - 无法增量编译，编译速度极慢
 
@@ -195,7 +195,7 @@ asm.js 高性能的秘密在于引擎会直接将符合 asm.js 规范的代码�
 
 这次 Benchmark 对比了 4 种代码的 `md5` 性能，它们分别是：
 
-- NodeJS 原生 crypto
+- Node.js 原生 crypto
 - rust-crypto 库的 wasm 版本
 - crypto-js
 - rust-crypto Node native binding 版本

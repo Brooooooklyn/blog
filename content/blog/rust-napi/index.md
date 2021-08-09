@@ -1,23 +1,23 @@
 ---
 layout: post
-title: 用 Rust 和 N-API 开发高性能 NodeJS 扩展
+title: 用 Rust 和 N-API 开发高性能 Node.js 扩展
 date: 2020-09-11
 author: '太狼'
 header_img: 'cover.jpg'
 postname: rust-napi
 tags:
-  - NodeJS
+  - Node.js
   - Rust
   - N-API
 ---
 
-## NodeJS native addon，过去和现状
+## Node.js native addon，过去和现状
 
-在 NodeJS 的历史中，native addon 一直是一个冷门但是重要的领域。无论是前端工程师还是 NodeJS 开发，都或多或少的依赖一些 native addon。在前端中比较常见的比如 `node-sass`, `node-canvas`, `sharp` 等。后端开发中就更多了，比如 `protobuf` , `bcrypt` ,`crc32` 等。
+在 Node.js 的历史中，native addon 一直是一个冷门但是重要的领域。无论是前端工程师还是 Node.js 开发，都或多或少的依赖一些 native addon。在前端中比较常见的比如 `node-sass`, `node-canvas`, `sharp` 等。后端开发中就更多了，比如 `protobuf` , `bcrypt` ,`crc32` 等。
 
 Native addon 可以做到 JavaScript 做不到的一些事情，比如调用系统库、打开一个窗口、调用 GPU 指令等。
 
-除此之外，由于 naive 代码 (C/C++/Rust/Nim/D 等) 在性能上对比 `JavaScript` 有较大的优势，所以 native addon 也经常被用来做一些 CPU 密集型的事情，比如区块链和加密货币相关领域中经常提供 NodeJS 的 npm package 作为对外 API，而底层的计算逻辑全部都用 C++ 实现。
+除此之外，由于 naive 代码 (C/C++/Rust/Nim/D 等) 在性能上对比 `JavaScript` 有较大的优势，所以 native addon 也经常被用来做一些 CPU 密集型的事情，比如区块链和加密货币相关领域中经常提供 Node.js 的 npm package 作为对外 API，而底层的计算逻辑全部都用 C++ 实现。
 
 ### 原生模块的本质
 
@@ -27,11 +27,11 @@ Native addon 可以做到 JavaScript 做不到的一些事情，比如调用系�
 - 是一个二进制文件
 - 是一个动态链接库 (Windows `dll`/Linux `so`/Unix `dylib`)
 
-NodeJS 对 native addon 开发侧暴露的是 ABI:
+Node.js 对 native addon 开发侧暴露的是 ABI:
 
 > ABI: In [computer software](https://en.wikipedia.org/wiki/Computer_software), an **application binary interface** (**ABI**) is an [interface](<https://en.wikipedia.org/wiki/Interface_(computing)>) between two binary program modules
 
-下面是 NodeJS 源码中加载 native addon 的代码:
+下面是 Node.js 源码中加载 native addon 的代码:
 
 ```cpp
 void DLOpen(const FunctionCallbackInfo<Value>& args) {
@@ -168,7 +168,7 @@ N-API 也发布一段时间了，社区中有很多 Native addon 也慢慢迁移
 
 ### 生态和工具链
 
-目前大部分的 NodeJS addon 基本都使用 C/C++ 开发。C/C++ 生态非常的繁荣，基本上你想做任何事情都能找到对应的 C/C++ 库。但 C/C++ 的生态因为缺乏统一的构建工具链以及包管理工具，导致这些第三方库在实际封装和使用上会遇到一些其它的问题:
+目前大部分的 Node.js addon 基本都使用 C/C++ 开发。C/C++ 生态非常的繁荣，基本上你想做任何事情都能找到对应的 C/C++ 库。但 C/C++ 的生态因为缺乏统一的构建工具链以及包管理工具，导致这些第三方库在实际封装和使用上会遇到一些其它的问题:
 
 - 使用多个不一样构建工具链的库的时候可能会很难搞定编译，比如这几年以来我一直都在尝试封装 skia 到 nodejs binding, 但是 skia 的编译。。实在是一言难尽的复杂，所以一直都在遇到这样或者那样的问题。
 - 由于没有好用的包管理器，很多优质的 C/C++ 代码都是作为一个大型项目的一部分存在的，而不是独立成一个库。这种情况下想要使用可能只能以 Copy 代码的形式: [bcrypt.cc](https://github.com/kelektiv/node.bcrypt.js/blob/master/src/bcrypt.cc)，这样对项目后期的升级和维护都带来了一些问题。
@@ -194,19 +194,19 @@ Rust 诞生以来迅速被很多商业公司使用
 - Reddit，使用 Rust 处理评论。
 - Twitter，在构建团队中使用 Rust。
 
-用 `Rust` 替代 `C/C++` 看起来是一个很美好的选择，Rust 有现代化的包管理器: `Cargo` ，经过这么多年的发展在生态上尤其是与 `NodeJS` 重叠的 **服务端开发** 、**跨平台 CLI 工具**、**跨平台 GUI **(electron) 等领域有了非常多的沉淀。比起 `C/C++` 生态，`Rust` 生态的包属于**_只要有，都可以直接用_** 的状态，而 `C/C++` 生态中的第三方代码则属于 **_肯定有，但不一定能直接用_** 的状态。这种状态下，用 `Rust` 开发 Node addon 少了很多选择，也少了很多选择的烦恼。
+用 `Rust` 替代 `C/C++` 看起来是一个很美好的选择，Rust 有现代化的包管理器: `Cargo` ，经过这么多年的发展在生态上尤其是与 `Node.js` 重叠的 **服务端开发** 、**跨平台 CLI 工具**、**跨平台 GUI **(electron) 等领域有了非常多的沉淀。比起 `C/C++` 生态，`Rust` 生态的包属于**_只要有，都可以直接用_** 的状态，而 `C/C++` 生态中的第三方代码则属于 **_肯定有，但不一定能直接用_** 的状态。这种状态下，用 `Rust` 开发 Node addon 少了很多选择，也少了很多选择的烦恼。
 
-在正式决定开始使用 `Rust` + `N-API` 开发 `NodeJS` addon 之前，还有一些问题需要讨论:
+在正式决定开始使用 `Rust` + `N-API` 开发 `Node.js` addon 之前，还有一些问题需要讨论:
 
 ### N-API 的 Rust binding
 
-NodeJS 官方为 N-API 提供了相应的头文件，作为开发 Node addon 时所需。而 `Rust` 没有办法直接使用 C 的头文件，所以我们需要将 `node.h` 暴露的 API 先封装成 `Rust` 可以使用的 `Rust binding`.
+Node.js 官方为 N-API 提供了相应的头文件，作为开发 Node addon 时所需。而 `Rust` 没有办法直接使用 C 的头文件，所以我们需要将 `node.h` 暴露的 API 先封装成 `Rust` 可以使用的 `Rust binding`.
 
 在 `Rust` 生态中，有官方维护的 [bindgen](https://github.com/rust-lang/rust-bindgen) 来自动生成头文件对应的 `Rust binding`，这个工具非常适合 `node.h` 这样非常纯粹的 C API 头文件，如果是 C++ API 则会复杂很多。
 
 但是这样生成出来的 `Rust binding` 一般都是 `unsafe` 的并且会充满底层的指针操作，这显然不利于我们进一步封装 native addon，也享受不到 `Safe Rust` 带来的种种好处。
 
-在早夭的 [xray](https://github.com/atom-archive/xray) 项目中，最早的编辑器架构并非后来的类似 `LSP` 的 `Client/Server` 架构，而是 `NodeJS` 直接调用 `Rust` 编写的 addon。所以在早期，xray 有一个非常粗糙的 `Rust N-API` 实现。
+在早夭的 [xray](https://github.com/atom-archive/xray) 项目中，最早的编辑器架构并非后来的类似 `LSP` 的 `Client/Server` 架构，而是 `Node.js` 直接调用 `Rust` 编写的 addon。所以在早期，xray 有一个非常粗糙的 `Rust N-API` 实现。
 
 几年前我将这些代码从 xray 项目的 `Git` 的历史中找回来了，并且加以封装和改进：[napi-rs](https://github.com/napi-rs/napi-rs)，将大部分常用的 N-API 接口封装成了 `Safe Rust ` 接口，并为它们编写了全方位的单元测试，它可以作为使用 `Rust` 编写 native addon 的重要基石。
 
@@ -280,7 +280,7 @@ fn add_one(ctx: CallContext) -> Result<JsNumber> {
 
 通过 `postinstall` 下载作为一种比较简单但是对使用者极不友好的方式，我觉得也不应该继续提倡使用。
 
-那最终对于使用 `Rust` 编写的 `NodeJS native addon`， 我们最好的选择就是使用**_不同平台分别分发 addon_** 的形式。
+那最终对于使用 `Rust` 编写的 `Node.js native addon`， 我们最好的选择就是使用**_不同平台分别分发 addon_** 的形式。
 
 在 [napi-rs](https://github.com/napi-rs/napi-rs) 项目中，我封装了简单的 `cli` 工具，用来帮助使用 `napi-rs` 的开发者管理从本地开发到 `CI` 发布的全流程。下面我们来用一个简单而实际的例子介绍一下如何使用 `Rust` 和 `napi-rs` 开发、测试、发布一个 NodeJS native addon。
 
@@ -308,8 +308,9 @@ use v_htmlescape::escape; // import
 
 register_module!(escape, init);
 
-fn init(module: &mut Module) -> Result<()> {
-  module.create_named_method("escapeHTML", escape_html)?;
+#[module_exports]
+fn init(mut exports: JsObject) -> Result<()> {
+  exports.create_named_method("escapeHTML", escape_html)?;
   Ok(())
 }
 
@@ -325,7 +326,7 @@ fn escape_html(ctx: CallContext) -> Result<JsString> {
 
 这就是一个最小可以使用的的 native addon 代码了，代码分 2 个部分:
 
-1. `register_module` 宏接受 2 个参数，第一个是 module 的名字，可以任意命名，这里命名为 `escape`， 第二个参数接受一个 `rust function`，它有唯一一个参数： `Module` ，这个参数代表了 NodeJS 中的 `module` 对象，我们可以通过设置 `module.exports` 对象设置需要导出的东西，而如果要导出函数则有一个 `helper` 方法: `module.create_named_method` 来直接导出。
+1. 被 `module_exports` 宏作用的 `init` 函数接受 2 个参数，第一个是 `exports`，这个参数代表了 Node.js 中的 `module.exports` 对象，我们可以通过 `exports` 对象设置需要导出的东西，而如果要导出函数则有一个 `helper` 方法: `module.create_named_method` 来直接导出。第二个是可选的 `env`, 这个参数可以用来创建对象、常量、函数等用于导出。
 2. `#[js_function(1)]` 宏用来定义一个 `JsFunction`，被定义的 `Rust function` 有唯一一个 `CallContext` 参数，我们从 `JavaScript` 代码中传入的参数可以通过 `ctx::get(n)` 方法获取。`#[js_function()]` 宏里面的参数定义了这个函数有几个参数，当 `ctx.get` 传入的值大于实际传入的参数个数的时候会抛一个 Js 异常。
 
 在运行 `yarn build` 之后，我们可以在 `js` 里面这样调用这里的 `escape_html` 函数:
@@ -483,6 +484,6 @@ asyncEscapeHTMLBuf(Buffer.from('<div>1</div>')).then((escaped) =>
 
 这次 `migrate` 让 `swc` 的 API 性能**快了 2 倍** [swc#852](https://github.com/swc-project/swc/issues/852) (这也是目前 napi-rs 对比 neon 的优势之一)，并且在 CI 和发布管理上节省了很多代码量。
 
-最后欢迎大家试用 [napi-rs](https://github.com/napi-rs/napi-rs) ，包括 [strapi](https://github.com/strapi/strapi) 在内的很多大型 NodeJS 项目 (包括字节跳动内部的 NodeJS 基础库，支撑的总 QPS 可能超过 10w) 已经用上 `napi-rs` 封装的库了，所以它在代码上已经 production ready 了。
+最后欢迎大家试用 [napi-rs](https://github.com/napi-rs/napi-rs) ，包括 [strapi](https://github.com/strapi/strapi) 在内的很多大型 Node.js 项目 (包括字节跳动内部的 Node.js 基础库，支撑的总 QPS 可能超过 10w) 已经用上 `napi-rs` 封装的库了，所以它在代码上已经 production ready 了。
 
 后面我会持续建设它的文档和周边工具链，让它更好用更易用，所以大家也不要忘了给个 Star 或者 **Sponsor**!

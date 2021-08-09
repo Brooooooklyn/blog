@@ -8,7 +8,7 @@ header_img: 'head.png'
 tags:
   - Rust
   - Neon Bindings
-  - NodeJS
+  - Node.js
   - Sentry
 ---
 

@@ -8,7 +8,7 @@ header_img: 'head.jpg'
 tags:
   - Rust
   - N-API
-  - NodeJS
+  - Node.js
   - TypeScript
   - Babel
   - esbuild
@@ -24,7 +24,7 @@ tags:
 
 swc 官方提供了 node binding，但是官方版本使用起来有几个问题:
 
-- ~~使用 [neon](https://github.com/neon-bindings/neon) 来实现 NodeJS 的 binding，neon 在 binding 层性能相较于 NodeJS 的 n-api 有一定的劣势，并且不是 ABI stable。这意味着针对多个 Node/V8 版本要编译多个 binary~~ 作者已经在我的帮助下 migrate 到了 [napi-rs](https://github.com/napi-rs/napi-rs) ，在 [swc 支持 native 插件之后](https://github.com/swc-project/swc/issues/1048)，[@swc-node](https://github.com/Brooooooklyn/swc-node) 会直接使用官方的 node 实现。
+- ~~使用 [neon](https://github.com/neon-bindings/neon) 来实现 Node.js 的 binding，neon 在 binding 层性能相较于 Node.js 的 n-api 有一定的劣势，并且不是 ABI stable。这意味着针对多个 Node/V8 版本要编译多个 binary~~ 作者已经在我的帮助下 migrate 到了 [napi-rs](https://github.com/napi-rs/napi-rs) ，在 [swc 支持 native 插件之后](https://github.com/swc-project/swc/issues/1048)，[@swc-node](https://github.com/Brooooooklyn/swc-node) 会直接使用官方的 node 实现。
 - prebuilt 的 binary 在 postinstall 的时候从 Github assets 下载进行分发，在 +86 地区会被 GFW 制裁。
 - 在 native 层做了太上层的抽象，（Class 封装，参数的一层层 serialize/deserialize）进一步降低了性能。
 
@@ -32,7 +32,7 @@ swc 官方提供了 node binding，但是官方版本使用起来有几个问题
 
 与官方的 @swc/core 相比，swc-node 有以下几个优势:
 
-- 使用 `N-API` 实现，兼容 8.9+ 所有的 NodeJS 版本
+- 使用 `N-API` 实现，兼容 8.9+ 所有的 Node.js 版本
 - ~~没有 postinstall，所有的内容都最小化的从 npm 下载，很方便的使用各种 npm 源加速~~
 - ~~性能更强~~
 - 对 node 各种生态有更好的支持，比如 [jest](https://github.com/Brooooooklyn/swc-node/tree/master/packages/jest) 和 [swc-register](https://github.com/Brooooooklyn/swc-node/tree/master/packages/register) （未来还会有 swc-loader 等其它工具链的支持）
