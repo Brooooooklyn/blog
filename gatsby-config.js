@@ -6,11 +6,11 @@ module.exports = {
       summary: `Frontend Developer at day, Rustacean at night.`,
     },
     description: `太狼的博客`,
-    siteUrl: `https://lynvv.xyz/`,
+    siteUrl: `https://lyn.one/`,
     social: {
       twitter: `Brooooook_lyn`,
       github: 'Brooooooklyn',
-      resume: `https://resume.lynvv.xyz`,
+      resume: `https://resume.lyn.one`,
       zhihu: `Broooooklyn`,
     },
   },
