@@ -35,6 +35,7 @@ const Bio = () => {
             twitter
             github
             resume
+            zhihu
           }
         }
       }
