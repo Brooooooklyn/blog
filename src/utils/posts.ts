@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content'
 import type { Lang } from '#consts.ts'
+import { DEFAULT_LANG } from '#consts.ts'
 
 function formatDate(date: Date): string {
   const year = date.getFullYear()
@@ -8,8 +9,12 @@ function formatDate(date: Date): string {
   return `${year}/${month}/${day}`
 }
 
+export function langPrefix(lang: Lang): string {
+  return lang === DEFAULT_LANG ? '' : `/${lang}`
+}
+
 export function getPostUrl(post: { data: { date: Date; postname: string } }, lang: Lang): string {
-  return `/${lang}/${formatDate(post.data.date)}/${post.data.postname}`
+  return `${langPrefix(lang)}/${formatDate(post.data.date)}/${post.data.postname}`
 }
 
 export function getReadingTime(content: string): number {

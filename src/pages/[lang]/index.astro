@@ -2,12 +2,14 @@
 import BaseLayout from '#layouts/BaseLayout.astro'
 import Bio from '#components/Bio.astro'
 import PostList from '#components/PostList.astro'
-import { UI_STRINGS, LANGUAGES } from '#consts.ts'
+import { UI_STRINGS, LANGUAGES, DEFAULT_LANG } from '#consts.ts'
 import type { Lang } from '#consts.ts'
 import { getPostsByLang } from '#utils/posts.ts'
 
 export function getStaticPaths() {
-  return Object.keys(LANGUAGES).map((lang) => ({ params: { lang } }))
+  return Object.keys(LANGUAGES)
+    .filter((lang) => lang !== DEFAULT_LANG)
+    .map((lang) => ({ params: { lang } }))
 }
 
 const lang = Astro.params.lang as Lang

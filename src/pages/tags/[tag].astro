@@ -1,31 +1,25 @@
 ---
 import BaseLayout from '#layouts/BaseLayout.astro'
 import PostList from '#components/PostList.astro'
-import { UI_STRINGS, LANGUAGES, DEFAULT_LANG } from '#consts.ts'
-import type { Lang } from '#consts.ts'
+import { UI_STRINGS, DEFAULT_LANG } from '#consts.ts'
 import { getPostsByLang, langPrefix } from '#utils/posts.ts'
 
+const lang = DEFAULT_LANG
+const t = UI_STRINGS[lang]
+
 export async function getStaticPaths() {
-  const paths = []
-  for (const lang of (Object.keys(LANGUAGES) as Lang[]).filter((l) => l !== DEFAULT_LANG)) {
-    const posts = await getPostsByLang(lang)
-    const tags = new Set<string>()
-    posts.forEach((post) => post.data.tags?.forEach((tag) => tags.add(tag)))
-    for (const tag of tags) {
-      paths.push({
-        params: { lang, tag },
-        props: {
-          tag,
-          posts: posts.filter((p) => p.data.tags?.includes(tag)),
-        },
-      })
-    }
-  }
-  return paths
+  const posts = await getPostsByLang('en')
+  const tags = new Set<string>()
+  posts.forEach((post) => post.data.tags?.forEach((tag) => tags.add(tag)))
+  return [...tags].map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts.filter((p) => p.data.tags?.includes(tag)),
+    },
+  }))
 }
 
-const lang = Astro.params.lang as Lang
-const t = UI_STRINGS[lang]
 const { tag, posts } = Astro.props
 ---
 

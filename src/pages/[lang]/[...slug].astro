@@ -1,16 +1,12 @@
 ---
-import BaseLayout from '#layouts/BaseLayout.astro'
-import Bio from '#components/Bio.astro'
-import TableOfContents from '#components/TableOfContents.astro'
-import TagBadge from '#components/TagBadge.astro'
-import { UI_STRINGS, LANGUAGES, LOCALE_MAP } from '#consts.ts'
+import PostPage from '#components/PostPage.astro'
+import { LANGUAGES, DEFAULT_LANG } from '#consts.ts'
 import type { Lang } from '#consts.ts'
-import { render } from 'astro:content'
-import { getPostsByLang, getPostUrl, getReadingTime } from '#utils/posts.ts'
+import { getPostsByLang } from '#utils/posts.ts'
 
 export async function getStaticPaths() {
   const paths = []
-  for (const lang of Object.keys(LANGUAGES) as Lang[]) {
+  for (const lang of (Object.keys(LANGUAGES) as Lang[]).filter((l) => l !== DEFAULT_LANG)) {
     const posts = await getPostsByLang(lang)
     for (let index = 0; index < posts.length; index++) {
       const post = posts[index]
@@ -20,11 +16,7 @@ export async function getStaticPaths() {
       const day = String(date.getDate()).padStart(2, '0')
       paths.push({
         params: { lang, slug: `${year}/${month}/${day}/${post.data.postname}` },
-        props: {
-          post,
-          prev: posts[index + 1] ?? null,
-          next: posts[index - 1] ?? null,
-        },
+        props: { post, prev: posts[index + 1] ?? null, next: posts[index - 1] ?? null },
       })
     }
   }
@@ -32,98 +24,7 @@ export async function getStaticPaths() {
 }
 
 const lang = Astro.params.lang as Lang
-const t = UI_STRINGS[lang]
 const { post, prev, next } = Astro.props
-const { Content, headings } = await render(post)
-const readingTime = post.body ? getReadingTime(post.body) : 1
-const hasMermaid = post.body?.includes('```mermaid') ?? false
 ---
 
-<BaseLayout title={post.data.title} description={post.data.title} lang={lang}>
-  <article>
-    <header class="mb-10">
-      <h1 class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
-        {post.data.title}
-      </h1>
-      <div class="mt-3 flex items-center gap-2 text-sm text-neutral-400 dark:text-neutral-500">
-        <time datetime={post.data.date.toISOString()}>
-          {post.data.date.toLocaleDateString(LOCALE_MAP[lang], {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
-        </time>
-        <span>&middot;</span>
-        <span>{readingTime} {t.minRead}</span>
-      </div>
-      {post.data.tags && post.data.tags.length > 0 && (
-        <div class="mt-3 flex flex-wrap gap-1.5">
-          {post.data.tags.map((tag) => (
-            <TagBadge tag={tag} lang={lang} />
-          ))}
-        </div>
-      )}
-    </header>
-
-    {post.data.header_img && (
-      <img
-        src={`/blog-images/${post.id.replace(/\/[^/]+$/, '')}/${post.data.header_img}`}
-        alt={post.data.title}
-        class="mb-10 w-full rounded-lg"
-      />
-    )}
-
-    <TableOfContents headings={headings} lang={lang} />
-
-    <div class="prose">
-      <Content />
-    </div>
-
-    <hr class="my-12 border-neutral-200 dark:border-neutral-800" />
-
-    <Bio lang={lang} />
-
-    <nav class="mt-12 flex justify-between gap-4">
-      <div>
-        {prev && (
-          <a href={getPostUrl(prev, lang)} class="group block no-underline">
-            <span class="text-xs text-neutral-400 dark:text-neutral-500">&larr; {t.prevPost}</span>
-            <p class="mt-1 text-sm text-neutral-600 transition-colors group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-neutral-100">
-              {prev.data.title}
-            </p>
-          </a>
-        )}
-      </div>
-      <div class="text-right">
-        {next && (
-          <a href={getPostUrl(next, lang)} class="group block no-underline">
-            <span class="text-xs text-neutral-400 dark:text-neutral-500">{t.nextPost} &rarr;</span>
-            <p class="mt-1 text-sm text-neutral-600 transition-colors group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-neutral-100">
-              {next.data.title}
-            </p>
-          </a>
-        )}
-      </div>
-    </nav>
-  </article>
-
-  {hasMermaid && (
-    <script is:inline>
-      (async () => {
-        const pres = document.querySelectorAll('pre[data-language="mermaid"]')
-        if (!pres.length) return
-        const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs')
-        const isDark = document.documentElement.classList.contains('dark')
-        mermaid.initialize({ startOnLoad: false, theme: isDark ? 'dark' : 'default' })
-        for (const pre of pres) {
-          const code = pre.querySelector('code')
-          const container = document.createElement('div')
-          container.className = 'mermaid'
-          container.textContent = code ? code.textContent : pre.textContent
-          pre.replaceWith(container)
-        }
-        await mermaid.run({ nodes: document.querySelectorAll('.mermaid') })
-      })()
-    </script>
-  )}
-</BaseLayout>
+<PostPage post={post} prev={prev} next={next} lang={lang} />

@@ -1,16 +1,9 @@
 ---
 import BaseLayout from '#layouts/BaseLayout.astro'
-import { UI_STRINGS, LANGUAGES, DEFAULT_LANG } from '#consts.ts'
-import type { Lang } from '#consts.ts'
+import { UI_STRINGS, DEFAULT_LANG } from '#consts.ts'
 import { getAllTags, langPrefix } from '#utils/posts.ts'
 
-export async function getStaticPaths() {
-  return Object.keys(LANGUAGES)
-    .filter((lang) => lang !== DEFAULT_LANG)
-    .map((lang) => ({ params: { lang } }))
-}
-
-const lang = Astro.params.lang as Lang
+const lang = DEFAULT_LANG
 const t = UI_STRINGS[lang]
 const tags = await getAllTags(lang)
 const sortedTags = [...tags.entries()].sort((a, b) => b[1] - a[1])

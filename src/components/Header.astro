@@ -1,6 +1,7 @@
 ---
 import type { Lang } from '#consts.ts'
-import { SITE_TITLE, LANGUAGES } from '#consts.ts'
+import { SITE_TITLE, LANGUAGES, DEFAULT_LANG } from '#consts.ts'
+import { langPrefix } from '#utils/posts.ts'
 import ThemeToggle from '#components/ThemeToggle.astro'
 
 interface Props {
@@ -10,11 +11,15 @@ interface Props {
 const { lang } = Astro.props
 const otherLang = lang === 'en' ? 'zh' : 'en'
 const currentPath = Astro.url.pathname
-const switchedPath = `/${otherLang}/${currentPath.slice(lang.length + 2)}`
+
+// Strip current lang prefix (if any) to get the bare path, then add the other lang prefix
+const currentPrefix = langPrefix(lang)
+const barePath = currentPrefix ? currentPath.slice(currentPrefix.length) : currentPath
+const switchedPath = `${langPrefix(otherLang)}${barePath}`
 ---
 
 <header class="mb-16 flex items-center justify-between">
-  <a href={`/${lang}/`} class="text-xl font-semibold tracking-tight text-neutral-900 no-underline dark:text-neutral-100">
+  <a href={`${langPrefix(lang)}/`} class="text-xl font-semibold tracking-tight text-neutral-900 no-underline dark:text-neutral-100">
     {SITE_TITLE}
   </a>
   <nav class="flex items-center gap-4">

@@ -1,4 +1,18 @@
 ---
-import { DEFAULT_LANG } from '#consts.ts'
-return Astro.redirect(`/${DEFAULT_LANG}/`)
+import BaseLayout from '#layouts/BaseLayout.astro'
+import Bio from '#components/Bio.astro'
+import PostList from '#components/PostList.astro'
+import { UI_STRINGS, DEFAULT_LANG } from '#consts.ts'
+import { getPostsByLang } from '#utils/posts.ts'
+
+const lang = DEFAULT_LANG
+const t = UI_STRINGS[lang]
+const posts = await getPostsByLang(lang)
 ---
+
+<BaseLayout title={t.allPosts} lang={lang}>
+  <Bio lang={lang} />
+  <div class="mt-14">
+    <PostList posts={posts} lang={lang} />
+  </div>
+</BaseLayout>
