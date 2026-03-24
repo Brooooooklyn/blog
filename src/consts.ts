@@ -32,12 +32,17 @@ interface UIStrings {
   tags: string
   taggedWith: string
   minRead: string
+  views: string
   prevPost: string
   nextPost: string
   toc: string
   builtWith: string
   backToAll: string
   postsTagged: string
+  comments: string
+  signInToComment: string
+  leaveComment: string
+  submitComment: string
 }
 
 export const UI_STRINGS: Record<Lang, UIStrings> = {
@@ -46,23 +51,33 @@ export const UI_STRINGS: Record<Lang, UIStrings> = {
     tags: 'Tags',
     taggedWith: 'Tagged with',
     minRead: 'min read',
+    views: 'views',
     prevPost: 'Previous',
     nextPost: 'Next',
     toc: 'Table of Contents',
     builtWith: 'Built with',
     backToAll: 'All posts',
     postsTagged: 'posts tagged',
+    comments: 'Comments',
+    signInToComment: 'Sign in with GitHub to comment',
+    leaveComment: 'Leave a comment',
+    submitComment: 'Submit',
   },
   zh: {
     allPosts: '所有文章',
     tags: '标签',
     taggedWith: '标签：',
     minRead: '分钟阅读',
+    views: '次阅读',
     prevPost: '上一篇',
     nextPost: '下一篇',
     toc: '目录',
     builtWith: '使用',
     backToAll: '所有文章',
     postsTagged: '篇文章',
+    comments: '评论',
+    signInToComment: '使用 GitHub 登录以评论',
+    leaveComment: '发表评论',
+    submitComment: '提交',
   },
 }

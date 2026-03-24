@@ -1,9 +1,14 @@
 {
-  "extends": "astro/tsconfigs/strict",
+  "extends": "./.void/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  }
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "types": ["void/env"]
+  },
+  "include": ["pages", "routes", "src", "middleware"]
 }

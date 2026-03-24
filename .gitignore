@@ -58,6 +58,11 @@ typings/
 dist/
 .astro/
 
+# Void
+.void/
+.wrangler/
+.dev.vars
+
 # Mac files
 .DS_Store
 
