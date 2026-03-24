@@ -5,6 +5,7 @@ date: 2018-07-02
 author: '太狼'
 postname: Rust_WebAssembly
 header_img: 'header.png'
+lang: zh
 tags:
   - WebAssembly
   - Rust

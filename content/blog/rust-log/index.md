@@ -5,6 +5,7 @@ date: 2018-01-27
 author: '太狼'
 postname: Rust_frontend_log
 header_img: 'head.png'
+lang: zh
 tags:
   - Rust
   - Neon Bindings

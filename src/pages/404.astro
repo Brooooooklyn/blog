@@ -1,0 +1,17 @@
+---
+import BaseLayout from '#layouts/BaseLayout.astro'
+import { DEFAULT_LANG } from '#consts.ts'
+---
+
+<BaseLayout title="404" lang={DEFAULT_LANG}>
+  <div class="py-20 text-center">
+    <h1 class="text-6xl font-bold text-neutral-200 dark:text-neutral-800">404</h1>
+    <p class="mt-4 text-neutral-500">Page not found.</p>
+    <a
+      href={`/${DEFAULT_LANG}/`}
+      class="mt-6 inline-block text-sm text-neutral-400 underline underline-offset-4 transition-colors hover:text-neutral-700 dark:hover:text-neutral-200"
+    >
+      Go home
+    </a>
+  </div>
+</BaseLayout>

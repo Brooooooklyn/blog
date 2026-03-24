@@ -5,6 +5,7 @@ postname: TypeScript-Decorator
 date: 2016-04-13
 author: '太狼'
 header_img: 'decorators-metadata-reflection-in-typescript.png'
+lang: zh
 tags:
   - JavaScript
   - ECMAScript 6

@@ -5,6 +5,7 @@ date: 2020-07-31
 author: '太狼'
 postname: swc-node
 header_img: 'head.jpg'
+lang: zh
 tags:
   - Rust
   - N-API

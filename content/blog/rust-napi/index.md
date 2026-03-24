@@ -5,6 +5,7 @@ date: 2020-09-11
 author: '太狼'
 header_img: 'cover.jpg'
 postname: rust-napi
+lang: zh
 tags:
   - Node.js
   - Rust
@@ -73,7 +74,18 @@ void DLOpen(const FunctionCallbackInfo<Value>& args) {
 }
 ```
 
-![DLOpen 流程图](./native-flow.png)
+```mermaid
+flowchart TD
+    A([开始]) --> B[/uv_dlopen 加载 *.node/]
+    B --> C[mp := modpending\nmodpending := nullptr]
+    C --> D[/链接库句柄赋值入 mp\naddon 链表加入该模块\n.../]
+    D --> E[/exports := module.exports\n（module 是参数）/]
+    E --> F[/调用动态链接库内的注册函数\n（传入 module、exports 等）/]
+    F --> G([结束])
+    B --> H[NODE_MODULE 模块名, 初始化函数]
+    H --> I[mp := 该模块相关内容]
+    I --> C
+```
 
 #### 远古时代
 

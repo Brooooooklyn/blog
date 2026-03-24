@@ -5,6 +5,7 @@ date: 2016-10-31
 author: '太狼'
 postname: Hello_RxJS
 header_img: 'reactivex.jpg'
+lang: zh
 tags:
   - JavaScript
   - ECMAScript 6

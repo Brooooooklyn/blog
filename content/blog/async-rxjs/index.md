@@ -5,6 +5,7 @@ date: 2017-02-01
 author: '太狼'
 postname: async_rxjs
 header_img: 'rxjs.png'
+lang: zh
 tags:
   - JavaScript
   - ECMAScript 6

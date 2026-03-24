@@ -1,0 +1,31 @@
+---
+import type { Lang } from '#consts.ts'
+import { UI_STRINGS } from '#consts.ts'
+import type { MarkdownHeading } from 'astro'
+
+interface Props {
+  headings: MarkdownHeading[]
+  lang: Lang
+}
+
+const { headings, lang } = Astro.props
+const t = UI_STRINGS[lang]
+const filteredHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
+---
+
+{filteredHeadings.length > 0 && (
+  <details class="toc mb-10 rounded-lg border border-neutral-200 p-4 dark:border-neutral-800">
+    <summary class="cursor-pointer text-sm font-medium text-neutral-500 dark:text-neutral-400">
+      {t.toc}
+    </summary>
+    <nav class="mt-3">
+      <ul class="space-y-1.5 text-sm">
+        {filteredHeadings.map((heading) => (
+          <li class={heading.depth === 3 ? 'ml-4' : ''}>
+            <a href={`#${heading.slug}`}>{heading.text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </details>
+)}

@@ -5,6 +5,7 @@ date: 2016-11-06
 author: '太狼'
 postname: connect_world_with_rxjs
 header_img: 'reactivex.jpg'
+lang: zh
 tags:
   - JavaScript
   - ECMAScript 6

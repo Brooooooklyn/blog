@@ -1,0 +1,135 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-neutral-900 antialiased transition-colors duration-200;
+}
+
+.dark body {
+  @apply bg-neutral-950 text-neutral-100;
+}
+
+/* Prose styles for markdown content */
+.prose {
+  @apply max-w-none leading-relaxed;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  @apply font-semibold tracking-tight text-neutral-900;
+  scroll-margin-top: 5rem;
+}
+
+.dark .prose h1,
+.dark .prose h2,
+.dark .prose h3,
+.dark .prose h4 {
+  @apply text-neutral-100;
+}
+
+.prose h2 {
+  @apply mt-12 mb-4 text-2xl;
+}
+
+.prose h3 {
+  @apply mt-8 mb-3 text-xl;
+}
+
+.prose p {
+  @apply mb-6 leading-7;
+}
+
+.prose a {
+  @apply underline decoration-neutral-300 underline-offset-4 transition-colors hover:decoration-neutral-900;
+}
+
+.dark .prose a {
+  @apply decoration-neutral-600 hover:decoration-neutral-100;
+}
+
+.prose blockquote {
+  @apply border-l-2 border-neutral-200 pl-6 text-neutral-600 italic;
+}
+
+.dark .prose blockquote {
+  @apply border-neutral-700 text-neutral-400;
+}
+
+.prose ul,
+.prose ol {
+  @apply mb-6 pl-6;
+}
+
+.prose li {
+  @apply mb-2;
+}
+
+.prose img {
+  @apply rounded-lg;
+}
+
+.prose hr {
+  @apply my-12 border-neutral-200;
+}
+
+.dark .prose hr {
+  @apply border-neutral-800;
+}
+
+.prose code:not(pre code) {
+  @apply rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium;
+}
+
+.dark .prose code:not(pre code) {
+  @apply bg-neutral-800;
+}
+
+.prose pre {
+  @apply my-6 overflow-x-auto rounded-lg border border-neutral-200 p-4 text-sm leading-relaxed;
+}
+
+.dark .prose pre {
+  @apply border-neutral-800;
+}
+
+.prose table {
+  @apply w-full border-collapse text-sm;
+}
+
+.prose th {
+  @apply border-b border-neutral-200 pb-2 text-left font-semibold;
+}
+
+.dark .prose th {
+  @apply border-neutral-700;
+}
+
+.prose td {
+  @apply border-b border-neutral-100 py-2;
+}
+
+.dark .prose td {
+  @apply border-neutral-800;
+}
+
+/* Table of contents */
+.toc a {
+  @apply text-neutral-500 no-underline transition-colors hover:text-neutral-900;
+}
+
+.dark .toc a {
+  @apply text-neutral-500 hover:text-neutral-100;
+}

@@ -1,0 +1,18 @@
+---
+import type { Lang } from '#consts.ts'
+import { UI_STRINGS } from '#consts.ts'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const t = UI_STRINGS[lang]
+---
+
+<footer class="mt-24 border-t border-neutral-200 pt-8 dark:border-neutral-800">
+  <p class="text-sm text-neutral-400 dark:text-neutral-600">
+    &copy; {new Date().getFullYear()} Moonglade. {t.builtWith}
+    <a href="https://astro.build" class="underline decoration-neutral-300 underline-offset-4 transition-colors hover:text-neutral-600 dark:decoration-neutral-700 dark:hover:text-neutral-300">Astro</a>.
+  </p>
+</footer>

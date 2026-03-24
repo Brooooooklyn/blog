@@ -3,8 +3,9 @@ layout: post
 title: Sigi framework introduction
 date: 2020-02-15
 author: '太狼'
-postname: Sigi framework introduction
+postname: sigi-introduction
 header_img: 'sigi-introduction.jpg'
+lang: zh
 tags:
   - TypeScript
   - RxJS
