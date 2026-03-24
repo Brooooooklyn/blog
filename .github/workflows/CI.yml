@@ -2,31 +2,23 @@ name: Deploy
 
 on:
   push:
-    branches: [master, develop]
+    branches: [master]
   pull_request:
 
 jobs:
-  lint-test-build:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - name: Use Node.js 14
-        uses: actions/setup-node@v2
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
         with:
-          node-version: 12
-
-      - name: Cache NPM dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-          key: npm-cache-tests-${{ hashFiles('**/yarn.lock') }}
+          node-version: 22
+          cache: npm
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Build
-        run: yarn build
-        env:
-          NODE_ENV: production
+        run: npm run build
