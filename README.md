@@ -2,4 +2,4 @@
   Moonglade
 </h1>
 
-## [https://lynvv.xyz](https://lynvv.xyz)
+[https://lyn.one](https://lyn.one)
