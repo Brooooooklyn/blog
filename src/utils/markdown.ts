@@ -1,7 +1,22 @@
-import { marked } from "marked"
+import { marked, type Tokens } from "marked"
 
-export async function renderMarkdown(content: string): Promise<string> {
-  return await marked(content)
+const renderer = {
+  code({ text, lang }: Tokens.Code): string {
+    const escaped = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    const langAttr = lang ? ` class="language-${lang}"` : ""
+    return `<pre><code${langAttr}>${escaped}</code></pre>`
+  },
+}
+
+marked.use({ renderer })
+
+export async function renderMarkdown(content: string, slug?: string): Promise<string> {
+  let text = content
+  if (slug) {
+    // Rewrite relative image paths to /blog-images/{slug}/
+    text = text.replace(/!\[([^\]]*)\]\(\.\/([^)]+)\)/g, `![$1](/blog-images/${slug}/$2)`)
+  }
+  return await marked(text)
 }
 
 export function extractHeadings(content: string): Array<{ depth: number; text: string; slug: string }> {

@@ -106,7 +106,7 @@ export default function CommentSection({
                 <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{comment.github_display_name}</span>
                 <span className="text-xs text-neutral-400 dark:text-neutral-500">@{comment.github_username}</span>
                 <span className="text-xs text-neutral-400 dark:text-neutral-500">
-                  &middot; {new Date(comment.created_at).toLocaleDateString(LOCALE_MAP[lang], { year: "numeric", month: "short", day: "numeric" })}
+                  &middot; {new Date(comment.created_at).toLocaleDateString(LOCALE_MAP[lang], { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" })}
                 </span>
               </div>
               <p className="mt-1 text-sm text-neutral-700 dark:text-neutral-300">{comment.body}</p>

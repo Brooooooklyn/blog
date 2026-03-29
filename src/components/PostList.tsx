@@ -1,15 +1,19 @@
 import type { Lang } from "../consts"
 import { UI_STRINGS, LOCALE_MAP } from "../consts"
-import { getPostUrl, getReadingTime } from "../utils/posts"
+import { getPostUrl } from "../utils/posts"
 import TagBadge from "./TagBadge"
-import type { Post } from "../utils/posts"
+import type { PostData } from "../utils/posts"
 
-export default function PostList({ posts, lang }: { posts: Post[]; lang: Lang }) {
+interface PostItem {
+  data: PostData
+  readingTime: number
+}
+
+export default function PostList({ posts, lang }: { posts: PostItem[]; lang: Lang }) {
   const t = UI_STRINGS[lang]
   return (
     <div className="space-y-10">
       {posts.map((post) => {
-        const readingTime = getReadingTime(post.content)
         const date = new Date(post.data.date)
         return (
           <article key={post.data.postname}>
@@ -22,7 +26,7 @@ export default function PostList({ posts, lang }: { posts: Post[]; lang: Lang })
                   {date.toLocaleDateString(LOCALE_MAP[lang], { year: "numeric", month: "long", day: "numeric" })}
                 </time>
                 <span>&middot;</span>
-                <span>{readingTime} {t.minRead}</span>
+                <span>{post.readingTime} {t.minRead}</span>
               </div>
             </a>
             {post.data.tags && post.data.tags.length > 0 && (

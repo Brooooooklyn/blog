@@ -4,6 +4,8 @@ import { views, comments } from "@schema"
 import { getUser } from "void/auth"
 import { getPostByName, getPostsByLang, getReadingTime } from "../src/utils/posts"
 import { renderMarkdown, extractHeadings } from "../src/utils/markdown"
+import { notFoundResponse } from "../src/utils/error-page"
+import { wantsMarkdown, postToMarkdown, markdownResponse } from "../src/utils/content-negotiation"
 import type { PostData } from "../src/utils/posts"
 import type { AuthUser } from "void/auth"
 
@@ -21,21 +23,28 @@ export interface Props {
 
 export const loader = defineHandler<Props>(async (c) => {
   const postname = c.req.param("postname")
-  if (!postname) return c.notFound()
+  if (!postname) return notFoundResponse()
 
   const post = getPostByName(postname, "en")
-  if (!post) return c.notFound()
+  if (!post) return notFoundResponse()
 
-  // Increment view count
-  await db
-    .insert(views)
-    .values({ postname, count: 1 })
-    .onConflictDoUpdate({ target: views.postname, set: { count: sql`${views.count} + 1` } })
+  if (wantsMarkdown(c.req.header("accept"))) {
+    return markdownResponse(postToMarkdown(post))
+  }
+
+  // Increment view count only on initial page load (not client-side navigation)
+  const isClientNav = c.req.header("x-voidpages") === "true"
+  if (!isClientNav) {
+    await db
+      .insert(views)
+      .values({ postname, count: 1 })
+      .onConflictDoUpdate({ target: views.postname, set: { count: sql`${views.count} + 1` } })
+  }
 
   const [viewRow] = await db.select({ count: views.count }).from(views).where(eq(views.postname, postname))
   const postComments = await db.select().from(comments).where(eq(comments.postname, postname)).orderBy(desc(comments.created_at))
   const user = getUser()
-  const html = await renderMarkdown(post.content)
+  const html = await renderMarkdown(post.content, post.data.slug)
   const headings = extractHeadings(post.content)
 
   // Find prev/next
@@ -57,7 +66,21 @@ export const loader = defineHandler<Props>(async (c) => {
   }
 })
 
-export const head = defineHead<Props>((c, props) => ({
-  title: props.postData.title,
-  meta: [{ name: "description", content: props.postData.title }],
-}))
+export const head = defineHead<Props>((c, props) => {
+  const desc = props.postData.description ?? props.postData.title
+  const meta: Array<Record<string, string>> = [
+    { name: "description", content: desc },
+    { property: "og:title", content: props.postData.title },
+    { property: "og:description", content: desc },
+    { property: "og:type", content: "article" },
+    { property: "twitter:card", content: "summary_large_image" },
+    { property: "twitter:title", content: props.postData.title },
+    { property: "twitter:description", content: desc },
+  ]
+  if (props.postData.header_img) {
+    const ogUrl = `https://lyn.one/blog-images/${props.postData.slug}/${props.postData.header_img}`
+    meta.push({ property: "og:image", content: ogUrl })
+    meta.push({ property: "twitter:image", content: ogUrl })
+  }
+  return { title: props.postData.title, meta }
+})

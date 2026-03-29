@@ -105,8 +105,55 @@ body {
   @apply border-neutral-800;
 }
 
+/* Shiki dual theme */
+.shiki,
+.shiki span {
+  color: var(--shiki-light) !important;
+  background-color: var(--shiki-light-bg) !important;
+}
+
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+/* HF collection card dark mode */
+.hf-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 24px 0;
+  background: linear-gradient(135deg, #fef9c3 0%, #fde68a 50%, #f59e0b22 100%);
+}
+
+.dark .hf-card {
+  border-color: #374151;
+  background: linear-gradient(135deg, #422006 0%, #78350f 50%, #92400e22 100%);
+}
+
+.hf-card .hf-title { font-weight: 600; font-size: 16px; color: #111; }
+.dark .hf-card .hf-title { color: #fbbf24; }
+
+.hf-card .hf-subtitle { font-size: 13px; color: #6b7280; }
+.dark .hf-card .hf-subtitle { color: #9ca3af; }
+
+.hf-card .hf-desc { font-size: 14px; color: #374151; margin: 0 0 16px 0; }
+.dark .hf-card .hf-desc { color: #d1d5db; }
+
+.hf-card .hf-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #1a1a1a; color: white;
+  padding: 8px 16px; border-radius: 8px;
+  font-size: 13px; font-weight: 500; text-decoration: none;
+}
+.dark .hf-card .hf-btn { background: #fbbf24; color: #1a1a1a; }
+
 .prose table {
   @apply w-full border-collapse text-sm;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .prose th {

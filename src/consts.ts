@@ -5,7 +5,7 @@ export const AUTHOR = {
   name: '太狼',
   summary: {
     en: 'Frontend Developer at day, Rustacean at night.',
-    zh: '白天前端开发，夜晚 Rustacean。',
+    zh: 'Frontend Developer at day, Rustacean at night.',
   },
 }
 
@@ -13,7 +13,6 @@ export const SOCIAL = {
   github: 'Brooooooklyn',
   twitter: 'Brooooook_lyn',
   huggingface: 'Brooooooklyn',
-  resume: 'https://resume.lyn.one',
 }
 
 export const LANGUAGES = {
