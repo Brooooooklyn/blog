@@ -42,6 +42,9 @@ interface UIStrings {
   signInToComment: string
   leaveComment: string
   submitComment: string
+  addComment: string
+  reply: string
+  signInToAnnotate: string
 }
 
 export const UI_STRINGS: Record<Lang, UIStrings> = {
@@ -61,6 +64,9 @@ export const UI_STRINGS: Record<Lang, UIStrings> = {
     signInToComment: 'Sign in with GitHub to comment',
     leaveComment: 'Leave a comment',
     submitComment: 'Submit',
+    addComment: 'Comment',
+    reply: 'Reply',
+    signInToAnnotate: 'Sign in to comment',
   },
   zh: {
     allPosts: '所有文章',
@@ -78,5 +84,8 @@ export const UI_STRINGS: Record<Lang, UIStrings> = {
     signInToComment: '使用 GitHub 登录以评论',
     leaveComment: '发表评论',
     submitComment: '提交',
+    addComment: '评论',
+    reply: '回复',
+    signInToAnnotate: '登录以评论',
   },
 }
