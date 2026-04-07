@@ -45,9 +45,10 @@ interface VersionEntry {
 interface PostHistory {
   versions: VersionEntry[]
   blocks: Array<{ type: string; content: string }>
+  snapshot: string  // base64-encoded LoroDoc snapshot
 }
 
-function extractHistory(doc: LoroDoc): PostHistory {
+function extractHistory(doc: LoroDoc, snapshotBytes: Uint8Array): PostHistory {
   const changes = doc.getAllChanges()
   const versions: VersionEntry[] = []
   for (const [peerId, peerChanges] of changes.entries()) {
@@ -61,7 +62,8 @@ function extractHistory(doc: LoroDoc): PostHistory {
   }
   versions.sort((a, b) => b.timestamp - a.timestamp)
   const blocks = readBlocksFromDoc(doc)
-  return { versions, blocks }
+  const snapshot = Buffer.from(snapshotBytes).toString("base64")
+  return { versions, blocks, snapshot }
 }
 
 export function versionHistory(options?: VersionHistoryOptions): Plugin {
@@ -135,7 +137,8 @@ export function versionHistory(options?: VersionHistoryOptions): Plugin {
           }
 
           // Always populate the virtual module with current history
-          historyMap[postKey] = extractHistory(doc)
+          const currentSnapshot = doc.export({ mode: "snapshot" })
+          historyMap[postKey] = extractHistory(doc, currentSnapshot)
         }
 
         if (updated > 0) {
