@@ -1,6 +1,6 @@
 import { defineHandler, defineHead } from "void"
-import { db, sql, eq, desc } from "void/db"
-import { views, comments } from "@schema"
+import { db, sql, eq, desc, and } from "void/db"
+import { views, comments, inlineComments } from "@schema"
 import { getUser } from "void/auth"
 import { getPostByName, getPostsByLang, getReadingTime } from "../../src/utils/posts"
 import { getPrerenderedPost } from "../../src/utils/markdown"
@@ -16,6 +16,7 @@ export interface Props {
   readingTime: number
   viewCount: number
   comments: any[]
+  inlineComments: any[]
   user: AuthUser | null
   prevPost: { title: string; url: string } | null
   nextPost: { title: string; url: string } | null
@@ -42,6 +43,11 @@ export const loader = defineHandler<Props>(async (c) => {
 
   const [viewRow] = await db.select({ count: views.count }).from(views).where(eq(views.postname, postname))
   const postComments = await db.select().from(comments).where(eq(comments.postname, postname)).orderBy(desc(comments.created_at))
+  const postInlineComments = await db
+    .select()
+    .from(inlineComments)
+    .where(and(eq(inlineComments.postname, postname), eq(inlineComments.lang, "zh")))
+    .orderBy(desc(inlineComments.created_at))
   const user = getUser()
   const prerendered = getPrerenderedPost(postname, "zh")
   const html = prerendered?.html ?? ""
@@ -59,6 +65,7 @@ export const loader = defineHandler<Props>(async (c) => {
     readingTime: getReadingTime(post.content),
     viewCount: viewRow?.count ?? 0,
     comments: postComments,
+    inlineComments: postInlineComments,
     user,
     prevPost: prev ? { title: prev.data.title, url: `/zh/${prev.data.postname}` } : null,
     nextPost: next ? { title: next.data.title, url: `/zh/${next.data.postname}` } : null,
