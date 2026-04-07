@@ -5,6 +5,7 @@ import Bio from "../../src/components/Bio"
 import TagBadge from "../../src/components/TagBadge"
 import CommentSection from "../../src/components/CommentSection" with { island: "load" }
 import CursorPresence from "../../src/components/CursorPresence" with { island: "visible" }
+import InlineComments from "../../src/components/InlineComments" with { island: "load" }
 
 export default function ZhPostPage({
   postData,
@@ -14,6 +15,7 @@ export default function ZhPostPage({
   viewCount,
   comments,
   user,
+  inlineComments,
   prevPost,
   nextPost,
 }: Props) {
@@ -69,7 +71,12 @@ export default function ZhPostPage({
         </details>
       )}
 
-      <div className="prose" dangerouslySetInnerHTML={{ __html: html }} />
+      <div className="flex gap-8">
+        <div className="min-w-0 flex-1">
+          <div className="prose" dangerouslySetInnerHTML={{ __html: html }} />
+        </div>
+        <InlineComments postname={postData.postname} lang={lang} user={user} initialComments={inlineComments} />
+      </div>
       <CursorPresence postname={postData.postname} />
 
       <hr className="my-12 border-neutral-200 dark:border-neutral-800" />
