@@ -2,9 +2,17 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@font-face {
+  font-family: "Sarasa Fixed SC";
+  src: url("/fonts/code-font.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+  --font-mono: 'Sarasa Fixed SC', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 /* Base styles */
@@ -73,8 +81,21 @@ body {
   @apply mb-6 pl-6;
 }
 
+.prose ol {
+  list-style-type: decimal;
+}
+
+.prose ul {
+  list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3' fill='%23a3a3a3'/%3E%3C/svg%3E");
+}
+
+.dark .prose ul {
+  list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3' fill='%23525252'/%3E%3C/svg%3E");
+}
+
 .prose li {
   @apply mb-2;
+  padding-left: 4px;
 }
 
 .prose img {
@@ -90,7 +111,7 @@ body {
 }
 
 .prose code:not(pre code) {
-  @apply rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium;
+  @apply rounded bg-neutral-100 px-1.5 py-0.5 text-[0.85em] font-medium;
 }
 
 .dark .prose code:not(pre code) {
@@ -105,13 +126,7 @@ body {
   @apply border-neutral-800;
 }
 
-/* Shiki dual theme */
-.shiki,
-.shiki span {
-  color: var(--shiki-light) !important;
-  background-color: var(--shiki-light-bg) !important;
-}
-
+/* Shiki dual theme — light uses inline style, dark uses CSS variables */
 .dark .shiki,
 .dark .shiki span {
   color: var(--shiki-dark) !important;
@@ -151,9 +166,6 @@ body {
 
 .prose table {
   @apply w-full border-collapse text-sm;
-  display: block;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 .prose th {

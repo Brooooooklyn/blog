@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Moonglade</title>
+    <link>https://lyn.one</link>
+    <description>LongYinan's Blog</description>
+    <language>en</language>
+    <lastBuildDate>Mon, 06 Apr 2026 15:45:40 GMT</lastBuildDate>
+    <atom:link href="https://lyn.one/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Why Qwen3.5 Falls Into Infinite Thinking — and How to Fix It</title>
+      <link>https://lyn.one/reasoning-control-flow</link>
+      <guid>https://lyn.one/reasoning-control-flow</guid>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
+      <description>Why Qwen3.5 models get stuck in infinite reasoning loops, how vLLM-style budget enforcement stops overthinking at the decode loop level, and the full control flow from request to token generation.</description>
+    </item>
+    <item>
+      <title>Unsloth MLX: Bring Dynamic 2.0 Per-Tensor Quantization to Apple Silicon</title>
+      <link>https://lyn.one/unsloth-quantize-recipe</link>
+      <guid>https://lyn.one/unsloth-quantize-recipe</guid>
+      <pubDate>Tue, 24 Mar 2026 00:00:00 GMT</pubDate>
+      <description>Bring Unsloth Dynamic 2.0 per-tensor quantization to MLX. Mixed-bit AWQ quantization for Qwen3.5 models running natively on Apple Silicon with mlx-node.</description>
+    </item>
+    <item>
+      <title>Developing High-Performance Node.js Extensions with Rust and N-API</title>
+      <link>https://lyn.one/rust-napi</link>
+      <guid>https://lyn.one/rust-napi</guid>
+      <pubDate>Fri, 11 Sep 2020 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>swc-node, the Fastest TypeScript/JavaScript Compiler</title>
+      <link>https://lyn.one/swc-node</link>
+      <guid>https://lyn.one/swc-node</guid>
+      <pubDate>Fri, 31 Jul 2020 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Introduction to the Sigi Framework</title>
+      <link>https://lyn.one/sigi-introduction</link>
+      <guid>https://lyn.one/sigi-introduction</guid>
+      <pubDate>Sat, 15 Feb 2020 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>A First Look at Rust &amp; WebAssembly</title>
+      <link>https://lyn.one/Rust_WebAssembly</link>
+      <guid>https://lyn.one/Rust_WebAssembly</guid>
+      <pubDate>Mon, 02 Jul 2018 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Accelerating Frontend Monitoring with Rust</title>
+      <link>https://lyn.one/Rust_frontend_log</link>
+      <guid>https://lyn.one/Rust_frontend_log</guid>
+      <pubDate>Sat, 27 Jan 2018 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Mastering Async with RxJS</title>
+      <link>https://lyn.one/async_rxjs</link>
+      <guid>https://lyn.one/async_rxjs</guid>
+      <pubDate>Wed, 01 Feb 2017 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Connecting the World with RxJS</title>
+      <link>https://lyn.one/connect_world_with_rxjs</link>
+      <guid>https://lyn.one/connect_world_with_rxjs</guid>
+      <pubDate>Sun, 06 Nov 2016 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Hello RxJS</title>
+      <link>https://lyn.one/Hello_RxJS</link>
+      <guid>https://lyn.one/Hello_RxJS</guid>
+      <pubDate>Mon, 31 Oct 2016 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

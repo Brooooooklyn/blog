@@ -3,7 +3,6 @@ import type { Props } from "./[postname].server"
 import { UI_STRINGS, LOCALE_MAP } from "../src/consts"
 import Bio from "../src/components/Bio"
 import TagBadge from "../src/components/TagBadge"
-import CodeHighlight from "../src/components/CodeHighlight" with { island: "visible" }
 import CommentSection from "../src/components/CommentSection" with { island: "load" }
 import CursorPresence from "../src/components/CursorPresence" with { island: "visible" }
 
@@ -71,7 +70,6 @@ export default function PostPage({
       )}
 
       <div className="prose" dangerouslySetInnerHTML={{ __html: html }} />
-      <CodeHighlight />
       <CursorPresence postname={postData.postname} />
 
       <hr className="my-12 border-neutral-200 dark:border-neutral-800" />

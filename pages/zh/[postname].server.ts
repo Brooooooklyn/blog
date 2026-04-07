@@ -3,7 +3,7 @@ import { db, sql, eq, desc } from "void/db"
 import { views, comments } from "@schema"
 import { getUser } from "void/auth"
 import { getPostByName, getPostsByLang, getReadingTime } from "../../src/utils/posts"
-import { renderMarkdown, extractHeadings } from "../../src/utils/markdown"
+import { getPrerenderedPost } from "../../src/utils/markdown"
 import { notFoundResponse } from "../../src/utils/error-page"
 import { wantsMarkdown, postToMarkdown, markdownResponse } from "../../src/utils/content-negotiation"
 import type { PostData } from "../../src/utils/posts"
@@ -43,8 +43,9 @@ export const loader = defineHandler<Props>(async (c) => {
   const [viewRow] = await db.select({ count: views.count }).from(views).where(eq(views.postname, postname))
   const postComments = await db.select().from(comments).where(eq(comments.postname, postname)).orderBy(desc(comments.created_at))
   const user = getUser()
-  const html = await renderMarkdown(post.content, post.data.slug)
-  const headings = extractHeadings(post.content)
+  const prerendered = getPrerenderedPost(postname, "zh")
+  const html = prerendered?.html ?? ""
+  const headings = prerendered?.headings ?? []
 
   const posts = getPostsByLang("zh")
   const idx = posts.findIndex((p) => p.data.postname === postname)
