@@ -1,5 +1,6 @@
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { auth } from "void/client"
+import { marked } from "marked"
 import type { Lang } from "../consts"
 import { UI_STRINGS, LOCALE_MAP } from "../consts"
 import type { AuthUser } from "void/auth"
@@ -30,6 +31,7 @@ export interface CommentDraft {
   startOffset: number
   endOffset: number
   selectedText: string
+  topOffset: number
 }
 
 export default function InlineCommentSidebar({
@@ -53,12 +55,10 @@ export default function InlineCommentSidebar({
   onDraftCancel: () => void
   onCommentCreated: () => void
 }) {
-  const t = UI_STRINGS[lang]
-
   return (
-    <aside className="hidden w-[300px] shrink-0 xl:block">
-      <div className="sticky top-8 space-y-4">
-        {draft && user && (
+    <aside className="absolute top-0 left-full ml-6 hidden w-[280px] xl:block">
+      {draft && user && (
+        <div className="absolute w-full" style={{ top: draft.topOffset }}>
           <CommentForm
             user={user}
             lang={lang}
@@ -67,7 +67,9 @@ export default function InlineCommentSidebar({
             onCancel={onDraftCancel}
             onCreated={onCommentCreated}
           />
-        )}
+        </div>
+      )}
+      <div className="sticky top-8 space-y-3">
         {threads.map((thread) => (
           <ThreadCard
             key={thread.id}
@@ -132,38 +134,44 @@ function CommentForm({
   }
 
   return (
-    <div className="rounded-lg border border-amber-200 bg-amber-50/50 p-3 dark:border-amber-500/30 dark:bg-amber-500/5">
-      <p className="mb-2 line-clamp-2 border-l-2 border-amber-300 pl-2 text-xs italic text-neutral-500 dark:border-amber-500/50 dark:text-neutral-400">
-        &ldquo;{draft.selectedText}&rdquo;
-      </p>
-      <div className="flex items-start gap-2">
-        <img src={user.image ?? ""} alt="" className="h-6 w-6 rounded-full" />
-        <form onSubmit={handleSubmit} className="flex-1">
-          <textarea
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-            placeholder={t.addComment}
-            rows={2}
-            autoFocus
-            className="w-full rounded border border-neutral-200 bg-white px-2 py-1 text-xs text-neutral-900 placeholder-neutral-400 focus:border-neutral-400 focus:outline-none dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100 dark:placeholder-neutral-500 dark:focus:border-neutral-500"
-          />
-          <div className="mt-1.5 flex justify-end gap-1.5">
-            <button
-              type="button"
-              onClick={onCancel}
-              className="rounded px-2 py-0.5 text-xs text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={submitting || !body.trim()}
-              className="rounded bg-neutral-900 px-2.5 py-0.5 text-xs text-white transition-colors hover:bg-neutral-700 disabled:opacity-50 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-300"
-            >
-              {submitting ? "..." : t.submitComment}
-            </button>
-          </div>
-        </form>
+    <div className="relative overflow-hidden rounded-2xl border border-white/40 bg-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.6)] backdrop-blur-2xl backdrop-saturate-[180%] dark:border-white/[0.08] dark:bg-white/[0.04] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.06)]">
+      <div className="px-4 pt-4 pb-3">
+        <p className="truncate text-[13px] leading-relaxed text-neutral-500 dark:text-neutral-400">
+          <span className="text-neutral-300 dark:text-neutral-600">&ldquo;</span>
+          {draft.selectedText}
+          <span className="text-neutral-300 dark:text-neutral-600">&rdquo;</span>
+        </p>
+      </div>
+      <div className="border-t border-white/30 px-4 pt-3 pb-4 dark:border-white/[0.06]">
+        <div className="flex items-start gap-3">
+          <img src={user.image ?? ""} alt="" className="mt-1 h-8 w-8 rounded-full shadow-sm ring-2 ring-white/60 dark:ring-white/10" />
+          <form onSubmit={handleSubmit} className="flex-1">
+            <textarea
+              value={body}
+              onChange={(e) => setBody(e.target.value)}
+              placeholder={t.addComment}
+              rows={3}
+              ref={(el) => el?.focus({ preventScroll: true })}
+              className="w-full resize-none rounded-xl border border-white/50 bg-white/50 px-3 py-2.5 text-[13px] leading-relaxed text-neutral-900 placeholder-neutral-300 shadow-[inset_0_1px_2px_rgba(0,0,0,0.04)] transition-all focus:border-white/70 focus:bg-white/70 focus:shadow-[inset_0_1px_2px_rgba(0,0,0,0.04),0_0_0_3px_rgba(255,255,255,0.3)] focus:outline-none dark:border-white/10 dark:bg-white/[0.06] dark:text-neutral-100 dark:placeholder-neutral-600 dark:focus:border-white/20 dark:focus:bg-white/[0.08]"
+            />
+            <div className="mt-2.5 flex items-center justify-end gap-2">
+              <button
+                type="button"
+                onClick={onCancel}
+                className="rounded-lg px-3.5 py-1.5 text-[13px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={submitting || !body.trim()}
+                className="rounded-xl bg-white/60 px-4 py-1.5 text-[13px] font-semibold text-neutral-800 shadow-[0_1px_3px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] backdrop-blur-sm transition-all hover:bg-white/80 hover:shadow-[0_2px_8px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.8)] disabled:opacity-30 dark:bg-white/10 dark:text-neutral-200 dark:shadow-[0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.06)] dark:hover:bg-white/15"
+              >
+                {submitting ? "..." : t.submitComment}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   )
@@ -223,89 +231,113 @@ function ThreadCard({
   return (
     <div
       onClick={onClick}
-      className={`cursor-pointer rounded-lg border p-3 transition-colors ${
+      className={`cursor-pointer overflow-hidden rounded-2xl border backdrop-blur-2xl backdrop-saturate-[180%] transition-all ${
         isActive
-          ? "border-amber-300 bg-amber-50/50 dark:border-amber-500/40 dark:bg-amber-500/5"
-          : "border-neutral-200 bg-white hover:border-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
+          ? "border-white/40 bg-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.6)] dark:border-white/[0.08] dark:bg-white/[0.04] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.06)]"
+          : "border-white/20 bg-white/15 hover:border-white/40 hover:bg-white/30 hover:shadow-[0_4px_16px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.4)] dark:border-white/[0.04] dark:bg-white/[0.02] dark:hover:border-white/[0.08] dark:hover:bg-white/[0.04]"
       }`}
     >
-      <p className="mb-2 line-clamp-2 border-l-2 border-amber-300 pl-2 text-xs italic text-neutral-500 dark:border-amber-500/50 dark:text-neutral-400">
-        &ldquo;{thread.selected_text}&rdquo;
-      </p>
+      <div className="px-4 pt-3 pb-2">
+        <p className="truncate text-[12px] leading-relaxed text-neutral-400 dark:text-neutral-500">
+          <span className="text-neutral-300 dark:text-neutral-600">&ldquo;</span>
+          {thread.selected_text}
+          <span className="text-neutral-300 dark:text-neutral-600">&rdquo;</span>
+        </p>
+      </div>
 
-      <CommentEntry
-        username={thread.github_username}
-        displayName={thread.github_display_name}
-        avatarUrl={thread.github_avatar_url}
-        body={thread.body}
-        createdAt={thread.created_at}
-        lang={lang}
-      />
+      <div className="px-4 pb-3.5">
+        <CommentEntry
+          displayName={thread.github_display_name}
+          avatarUrl={thread.github_avatar_url}
+          body={thread.body}
+          createdAt={thread.created_at}
+          lang={lang}
+        />
 
-      {thread.replies.map((reply) => (
-        <div key={reply.id} className="ml-6 mt-2 border-l border-neutral-100 pl-2 dark:border-neutral-800">
-          <CommentEntry
-            username={reply.github_username}
-            displayName={reply.github_display_name}
-            avatarUrl={reply.github_avatar_url}
-            body={reply.body}
-            createdAt={reply.created_at}
-            lang={lang}
-          />
-        </div>
-      ))}
-
-      {user && !showReplyForm && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation()
-            setShowReplyForm(true)
-          }}
-          className="mt-2 text-xs text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300"
-        >
-          {t.reply}
-        </button>
-      )}
-
-      {showReplyForm && user && (
-        <form onSubmit={handleReply} className="mt-2" onClick={(e) => e.stopPropagation()}>
-          <div className="flex items-start gap-1.5">
-            <img src={user.image ?? ""} alt="" className="h-5 w-5 rounded-full" />
-            <textarea
-              value={replyBody}
-              onChange={(e) => setReplyBody(e.target.value)}
-              rows={2}
-              autoFocus
-              className="flex-1 rounded border border-neutral-200 bg-transparent px-2 py-1 text-xs text-neutral-900 placeholder-neutral-400 focus:border-neutral-400 focus:outline-none dark:border-neutral-700 dark:text-neutral-100 dark:focus:border-neutral-500"
+        {thread.replies.map((reply) => (
+          <div key={reply.id} className="mt-3 border-l-2 border-neutral-100 pl-3 dark:border-neutral-800">
+            <CommentEntry
+              displayName={reply.github_display_name}
+              avatarUrl={reply.github_avatar_url}
+              body={reply.body}
+              createdAt={reply.created_at}
+              lang={lang}
             />
           </div>
-          <div className="mt-1 flex justify-end gap-1">
-            <button type="button" onClick={() => setShowReplyForm(false)} className="rounded px-1.5 py-0.5 text-xs text-neutral-400">
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={submitting || !replyBody.trim()}
-              className="rounded bg-neutral-900 px-2 py-0.5 text-xs text-white disabled:opacity-50 dark:bg-neutral-100 dark:text-neutral-900"
-            >
-              {t.reply}
-            </button>
-          </div>
-        </form>
-      )}
+        ))}
+
+        {user && !showReplyForm && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              setShowReplyForm(true)
+            }}
+            className="mt-3 flex items-center gap-1 text-[12px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300"
+          >
+            <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+            </svg>
+            {t.reply}
+          </button>
+        )}
+
+        {showReplyForm && user && (
+          <form onSubmit={handleReply} className="mt-3 border-t border-white/20 pt-3 dark:border-white/[0.04]" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-start gap-2">
+              <img src={user.image ?? ""} alt="" className="mt-1 h-5 w-5 rounded-full ring-1 ring-white/40 dark:ring-white/10" />
+              <textarea
+                value={replyBody}
+                onChange={(e) => setReplyBody(e.target.value)}
+                rows={2}
+                autoFocus
+                placeholder={t.reply + "..."}
+                className="flex-1 resize-none rounded-lg border border-white/40 bg-white/40 px-2.5 py-2 text-[13px] leading-relaxed text-neutral-900 placeholder-neutral-300 shadow-[inset_0_1px_2px_rgba(0,0,0,0.04)] transition-all focus:border-white/60 focus:bg-white/60 focus:outline-none dark:border-white/10 dark:bg-white/[0.06] dark:text-neutral-100 dark:placeholder-neutral-600 dark:focus:border-white/15"
+              />
+            </div>
+            <div className="mt-2 flex justify-end gap-1.5">
+              <button
+                type="button"
+                onClick={() => setShowReplyForm(false)}
+                className="rounded-lg px-2.5 py-1 text-[12px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={submitting || !replyBody.trim()}
+                className="rounded-lg bg-white/50 px-3 py-1 text-[12px] font-semibold text-neutral-700 shadow-[0_1px_3px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.7)] backdrop-blur-sm transition-all hover:bg-white/70 disabled:opacity-30 dark:bg-white/10 dark:text-neutral-300 dark:shadow-[0_1px_3px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.06)] dark:hover:bg-white/15"
+              >
+                {t.reply}
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
     </div>
   )
 }
 
+function CommentBody({ body }: { body: string }) {
+  const html = useMemo(() => {
+    const rendered = marked.parseInline(body) as string
+    return rendered
+  }, [body])
+
+  return (
+    <div
+      className="comment-body mt-0.5 text-[13px] leading-relaxed text-neutral-600 dark:text-neutral-300 [&_a]:text-blue-600 [&_a]:underline [&_a]:decoration-blue-300 dark:[&_a]:text-blue-400 dark:[&_a]:decoration-blue-700 [&_code]:rounded [&_code]:bg-neutral-100 [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[12px] dark:[&_code]:bg-neutral-800 [&_strong]:font-semibold [&_strong]:text-neutral-900 dark:[&_strong]:text-neutral-100"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  )
+}
+
 function CommentEntry({
-  username,
   displayName,
   avatarUrl,
   body,
   createdAt,
   lang,
 }: {
-  username: string
   displayName: string
   avatarUrl: string
   body: string
@@ -313,16 +345,16 @@ function CommentEntry({
   lang: Lang
 }) {
   return (
-    <div className="flex items-start gap-2">
-      <img src={avatarUrl} alt={displayName} className="h-5 w-5 rounded-full" />
+    <div className="flex items-start gap-2.5">
+      <img src={avatarUrl} alt={displayName} className="mt-0.5 h-6 w-6 rounded-full ring-1 ring-neutral-100 dark:ring-neutral-800" />
       <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-1">
-          <span className="truncate text-xs font-medium text-neutral-900 dark:text-neutral-100">{displayName}</span>
-          <span className="shrink-0 text-[10px] text-neutral-400 dark:text-neutral-500">
+        <div className="flex items-baseline gap-1.5">
+          <span className="truncate text-[13px] font-semibold text-neutral-900 dark:text-neutral-100">{displayName}</span>
+          <span className="shrink-0 text-[11px] text-neutral-400 dark:text-neutral-500">
             {new Date(createdAt).toLocaleDateString(LOCALE_MAP[lang], { month: "short", day: "numeric" })}
           </span>
         </div>
-        <p className="mt-0.5 text-xs text-neutral-700 dark:text-neutral-300">{body}</p>
+        <CommentBody body={body} />
       </div>
     </div>
   )

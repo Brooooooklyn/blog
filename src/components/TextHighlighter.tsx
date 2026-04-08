@@ -14,8 +14,7 @@ export default function TextHighlighter({
 }) {
   const highlightsRef = useRef<HTMLElement[]>([])
 
-  const applyHighlights = useCallback(() => {
-    // Clear existing highlights
+  const clearHighlights = useCallback(() => {
     for (const el of highlightsRef.current) {
       const parent = el.parentNode
       if (parent) {
@@ -24,6 +23,10 @@ export default function TextHighlighter({
       }
     }
     highlightsRef.current = []
+  }, [])
+
+  const applyHighlights = useCallback(() => {
+    clearHighlights()
 
     if (!proseRef.current || threads.length === 0) return
 
@@ -51,21 +54,12 @@ export default function TextHighlighter({
         // surroundContents can fail if selection spans multiple elements
       }
     }
-  }, [proseRef, threads, activeThreadId, onHighlightClick])
+  }, [proseRef, threads, activeThreadId, onHighlightClick, clearHighlights])
 
   useEffect(() => {
     applyHighlights()
-    return () => {
-      for (const el of highlightsRef.current) {
-        const parent = el.parentNode
-        if (parent) {
-          while (el.firstChild) parent.insertBefore(el.firstChild, el)
-          parent.removeChild(el)
-        }
-      }
-      highlightsRef.current = []
-    }
-  }, [applyHighlights])
+    return clearHighlights
+  }, [applyHighlights, clearHighlights])
 
   return null
 }

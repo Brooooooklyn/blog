@@ -41,13 +41,11 @@ export const loader = defineHandler<Props>(async (c) => {
       .onConflictDoUpdate({ target: views.postname, set: { count: sql`${views.count} + 1` } })
   }
 
-  const [viewRow] = await db.select({ count: views.count }).from(views).where(eq(views.postname, postname))
-  const postComments = await db.select().from(comments).where(eq(comments.postname, postname)).orderBy(desc(comments.created_at))
-  const postInlineComments = await db
-    .select()
-    .from(inlineComments)
-    .where(and(eq(inlineComments.postname, postname), eq(inlineComments.lang, "zh")))
-    .orderBy(desc(inlineComments.created_at))
+  const [[viewRow], postComments, postInlineComments] = await Promise.all([
+    db.select({ count: views.count }).from(views).where(eq(views.postname, postname)),
+    db.select().from(comments).where(eq(comments.postname, postname)).orderBy(desc(comments.created_at)),
+    db.select().from(inlineComments).where(and(eq(inlineComments.postname, postname), eq(inlineComments.lang, "zh"))).orderBy(desc(inlineComments.created_at)),
+  ])
   const user = getUser()
   const prerendered = getPrerenderedPost(postname, "zh")
   const html = prerendered?.html ?? ""

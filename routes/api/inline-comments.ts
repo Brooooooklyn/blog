@@ -25,12 +25,7 @@ function groupCommentsWithReplies(rows: any[]) {
 }
 
 function bufferToBase64(buf: ArrayBuffer | Uint8Array): string {
-  const bytes = new Uint8Array(buf)
-  let binary = ""
-  for (let i = 0; i < bytes.length; i++) {
-    binary += String.fromCharCode(bytes[i])
-  }
-  return btoa(binary)
+  return Buffer.from(buf).toString("base64")
 }
 
 function base64ToBuffer(b64: string): Buffer {

@@ -5,18 +5,6 @@ import InlineCommentLayer from "./InlineCommentLayer"
 import InlineCommentSidebar, { type InlineCommentThread, type CommentDraft } from "./InlineCommentSidebar"
 import TextHighlighter from "./TextHighlighter"
 
-function groupCommentsIntoThreads(rows: any[]): InlineCommentThread[] {
-  const topLevel = rows.filter((r: any) => r.parent_id === null)
-  const replies = rows.filter((r: any) => r.parent_id !== null)
-
-  return topLevel.map((comment: any) => ({
-    ...comment,
-    replies: replies
-      .filter((r: any) => r.parent_id === comment.id)
-      .sort((a: any, b: any) => +new Date(a.created_at) - +new Date(b.created_at)),
-  }))
-}
-
 export default function InlineComments({
   postname,
   lang,
@@ -26,10 +14,10 @@ export default function InlineComments({
   postname: string
   lang: Lang
   user: AuthUser | null
-  initialComments: any[]
+  initialComments: InlineCommentThread[]
 }) {
   const proseRef = useRef<HTMLDivElement | null>(null)
-  const [threads, setThreads] = useState<InlineCommentThread[]>(() => groupCommentsIntoThreads(initialComments))
+  const [threads, setThreads] = useState<InlineCommentThread[]>(initialComments)
   const [draft, setDraft] = useState<CommentDraft | null>(null)
   const [activeThreadId, setActiveThreadId] = useState<number | null>(null)
 
@@ -40,11 +28,19 @@ export default function InlineComments({
   }, [])
 
   const handleComment = useCallback((info: { blockIndex: number; startOffset: number; endOffset: number; selectedText: string }) => {
+    let topOffset = 0
+    if (proseRef.current) {
+      const blockEl = proseRef.current.children[info.blockIndex] as HTMLElement | undefined
+      if (blockEl) {
+        topOffset = blockEl.offsetTop
+      }
+    }
     setDraft({
       blockIndex: info.blockIndex,
       startOffset: info.startOffset,
       endOffset: info.endOffset,
       selectedText: info.selectedText,
+      topOffset,
     })
   }, [])
 

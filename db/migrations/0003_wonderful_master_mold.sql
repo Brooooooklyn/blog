@@ -1,7 +1,7 @@
 CREATE TABLE `inline_comments` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`postname` text NOT NULL,
-	`lang` text NOT NULL DEFAULT 'en',
+	`lang` text DEFAULT 'en' NOT NULL,
 	`block_index` integer NOT NULL,
 	`start_offset` integer NOT NULL,
 	`end_offset` integer NOT NULL,
@@ -16,4 +16,10 @@ CREATE TABLE `inline_comments` (
 	`github_display_name` text NOT NULL,
 	`body` text NOT NULL,
 	`created_at` integer NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE `post_snapshots` (
+	`postname` text PRIMARY KEY NOT NULL,
+	`snapshot` blob NOT NULL,
+	`updated_at` integer NOT NULL
 );

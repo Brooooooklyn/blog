@@ -71,10 +71,8 @@ export default function PostPage({
         </details>
       )}
 
-      <div className="flex gap-8">
-        <div className="min-w-0 flex-1">
-          <div className="prose" dangerouslySetInnerHTML={{ __html: html }} />
-        </div>
+      <div className="relative">
+        <div className="prose" dangerouslySetInnerHTML={{ __html: html }} />
         <InlineComments postname={postData.postname} lang={lang} user={user} initialComments={inlineComments} />
       </div>
       <CursorPresence postname={postData.postname} />
