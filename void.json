@@ -1,17 +1,53 @@
 {
   "$schema": "./node_modules/void/schema.json",
   "auth": {
-    "providers": ["github"]
+    "providers": [
+      "github"
+    ]
   },
   "head": {
     "titleTemplate": "%s | Moonglade",
-    "htmlAttrs": { "lang": "en" },
+    "htmlAttrs": {
+      "lang": "en"
+    },
     "meta": [
-      { "charset": "utf-8" },
-      { "name": "viewport", "content": "width=device-width, initial-scale=1" }
+      {
+        "charset": "utf-8"
+      },
+      {
+        "name": "viewport",
+        "content": "width=device-width, initial-scale=1"
+      }
     ],
     "link": [
-      { "rel": "icon", "type": "image/x-icon", "href": "/favicon.ico" }
+      {
+        "rel": "icon",
+        "type": "image/svg+xml",
+        "href": "/favicon.svg"
+      },
+      {
+        "rel": "icon",
+        "type": "image/x-icon",
+        "href": "/favicon.ico"
+      },
+      {
+        "rel": "icon",
+        "type": "image/png",
+        "sizes": "96x96",
+        "href": "/favicon-96x96.png"
+      },
+      {
+        "rel": "apple-touch-icon",
+        "sizes": "180x180",
+        "href": "/apple-touch-icon.png"
+      },
+      {
+        "rel": "manifest",
+        "href": "/site.webmanifest"
+      }
     ]
+  },
+  "worker": {
+    "compatibility_date": "2026-02-24"
   }
 }

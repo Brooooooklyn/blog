@@ -9,7 +9,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "favicons": "oxnode scripts/generate-favicons.ts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.1",

@@ -1,0 +1,29 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Moonglade">
+  <!-- Opaque "night sky" badge used for raster icons (.ico, apple-touch, PWA).
+       Self-contained dark background keeps the gold crescent readable on any
+       browser chrome, light or dark. Crescent + stars sit inside the maskable
+       safe zone (center 80%) so platform corner-rounding never clips them. -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1e293b" />
+      <stop offset="1" stop-color="#0f172a" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0.45" cy="0.5" r="0.55">
+      <stop offset="0" stop-color="#fde68a" stop-opacity="0.22" />
+      <stop offset="1" stop-color="#fde68a" stop-opacity="0" />
+    </radialGradient>
+    <mask id="crescent">
+      <rect width="512" height="512" fill="black" />
+      <circle cx="228" cy="262" r="132" fill="white" />
+      <circle cx="298" cy="214" r="124" fill="black" />
+    </mask>
+  </defs>
+  <rect width="512" height="512" fill="url(#sky)" />
+  <circle cx="228" cy="262" r="172" fill="url(#glow)" />
+  <rect width="512" height="512" fill="#fcd34d" mask="url(#crescent)" />
+  <g fill="#e2e8f0">
+    <circle cx="356" cy="158" r="5" opacity="0.95" />
+    <circle cx="388" cy="324" r="3.5" opacity="0.8" />
+    <circle cx="158" cy="372" r="3" opacity="0.7" />
+  </g>
+</svg>

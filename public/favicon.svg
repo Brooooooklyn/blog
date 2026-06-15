@@ -1,0 +1,15 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Moonglade">
+  <style>
+    /* Amber crescent. Darker on light tab backgrounds, brighter on dark. */
+    .moon { fill: #d97706; }
+    @media (prefers-color-scheme: dark) {
+      .moon { fill: #fcd34d; }
+    }
+  </style>
+  <mask id="crescent">
+    <rect width="512" height="512" fill="black" />
+    <circle cx="232" cy="256" r="184" fill="white" />
+    <circle cx="320" cy="200" r="176" fill="black" />
+  </mask>
+  <rect width="512" height="512" class="moon" mask="url(#crescent)" />
+</svg>
