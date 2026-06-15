@@ -9,17 +9,31 @@ import { wantsMarkdown, postToMarkdown, markdownResponse } from "../../src/utils
 import type { PostData } from "../../src/utils/posts"
 import type { AuthUser } from "void/auth"
 
+type InlineCommentRow = typeof inlineComments.$inferSelect
+type InlineCommentThread = InlineCommentRow & { replies: InlineCommentRow[] }
+
 export interface Props {
   postData: PostData
   html: string
   headings: Array<{ depth: number; text: string; slug: string }>
   readingTime: number
   viewCount: number
-  comments: any[]
-  inlineComments: any[]
+  comments: (typeof comments.$inferSelect)[]
+  inlineComments: InlineCommentThread[]
   user: AuthUser | null
   prevPost: { title: string; url: string } | null
   nextPost: { title: string; url: string } | null
+}
+
+function groupInlineComments(rows: InlineCommentRow[]): InlineCommentThread[] {
+  const topLevel = rows.filter((r) => r.parent_id === null)
+  const replies = rows.filter((r) => r.parent_id !== null)
+  return topLevel.map((comment) => ({
+    ...comment,
+    replies: replies
+      .filter((r) => r.parent_id === comment.id)
+      .sort((a, b) => +a.created_at - +b.created_at),
+  }))
 }
 
 export const loader = defineHandler<Props>(async (c) => {
@@ -63,7 +77,7 @@ export const loader = defineHandler<Props>(async (c) => {
     readingTime: getReadingTime(post.content),
     viewCount: viewRow?.count ?? 0,
     comments: postComments,
-    inlineComments: postInlineComments,
+    inlineComments: groupInlineComments(postInlineComments),
     user,
     prevPost: prev ? { title: prev.data.title, url: `/zh/${prev.data.postname}` } : null,
     nextPost: next ? { title: next.data.title, url: `/zh/${next.data.postname}` } : null,

@@ -44,8 +44,8 @@ export default function TextHighlighter({
         const mark = document.createElement("mark")
         mark.className =
           thread.id === activeThreadId
-            ? "bg-amber-200/80 dark:bg-amber-500/30 cursor-pointer rounded-sm transition-colors"
-            : "bg-amber-100/60 dark:bg-amber-500/20 cursor-pointer rounded-sm transition-colors hover:bg-amber-200/80 dark:hover:bg-amber-500/30"
+            ? "bg-amber-200/80 dark:bg-amber-400/20 dark:text-amber-100 cursor-pointer rounded-sm transition-colors"
+            : "bg-amber-100/60 dark:bg-amber-400/[0.12] dark:text-amber-100 cursor-pointer rounded-sm transition-colors hover:bg-amber-200/80 dark:hover:bg-amber-400/20"
         mark.dataset.threadId = String(thread.id)
         mark.addEventListener("click", () => onHighlightClick(thread.id))
         range.surroundContents(mark)

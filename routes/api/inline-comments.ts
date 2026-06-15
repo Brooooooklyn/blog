@@ -3,19 +3,21 @@ import { db, eq, and, desc } from "void/db"
 import { inlineComments } from "@schema"
 import { getUser } from "void/auth"
 
-function groupCommentsWithReplies(rows: any[]) {
-  const topLevel = rows.filter((r: any) => r.parent_id === null)
-  const replies = rows.filter((r: any) => r.parent_id !== null)
+type InlineCommentRow = typeof inlineComments.$inferSelect
 
-  return topLevel.map((comment: any) => ({
+function groupCommentsWithReplies(rows: InlineCommentRow[]) {
+  const topLevel = rows.filter((r) => r.parent_id === null)
+  const childRows = rows.filter((r) => r.parent_id !== null)
+
+  return topLevel.map((comment) => ({
     ...comment,
     cursor_start: comment.cursor_start ? bufferToBase64(comment.cursor_start) : null,
     cursor_end: comment.cursor_end ? bufferToBase64(comment.cursor_end) : null,
     version_frontiers: comment.version_frontiers ? bufferToBase64(comment.version_frontiers) : null,
-    replies: replies
-      .filter((r: any) => r.parent_id === comment.id)
-      .sort((a: any, b: any) => +a.created_at - +b.created_at)
-      .map((r: any) => ({
+    replies: childRows
+      .filter((r) => r.parent_id === comment.id)
+      .sort((a, b) => +a.created_at - +b.created_at)
+      .map((r) => ({
         ...r,
         cursor_start: undefined,
         cursor_end: undefined,

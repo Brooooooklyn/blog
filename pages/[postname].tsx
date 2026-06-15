@@ -4,6 +4,7 @@ import { UI_STRINGS, LOCALE_MAP } from "../src/consts"
 import Bio from "../src/components/Bio"
 import TagBadge from "../src/components/TagBadge"
 import CommentSection from "../src/components/CommentSection" with { island: "load" }
+
 import CursorPresence from "../src/components/CursorPresence" with { island: "visible" }
 import InlineComments from "../src/components/InlineComments" with { island: "load" }
 
