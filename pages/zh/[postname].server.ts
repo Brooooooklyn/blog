@@ -4,6 +4,7 @@ import { views, comments, inlineComments } from "@schema"
 import { getUser } from "void/auth"
 import { getPostByName, getPostsByLang, getReadingTime } from "../../src/utils/posts"
 import { getPrerenderedPost } from "../../src/utils/markdown"
+import { bestEffortWrite, bestEffortRead } from "../../src/utils/best-effort"
 import { notFoundResponse } from "../../src/utils/error-page"
 import { wantsMarkdown, postToMarkdown, markdownResponse } from "../../src/utils/content-negotiation"
 import type { PostData } from "../../src/utils/posts"
@@ -47,18 +48,28 @@ export const loader = defineHandler<Props>(async (c) => {
     return markdownResponse(postToMarkdown(post))
   }
 
+  // All D1 access here is best-effort: the article renders from build artifacts,
+  // so a transient D1 failure must degrade nonessential data, never 500 the page.
   const isClientNav = c.req.header("x-voidpages") === "true"
   if (!isClientNav) {
-    await db
-      .insert(views)
-      .values({ postname, count: 1 })
-      .onConflictDoUpdate({ target: views.postname, set: { count: sql`${views.count} + 1` } })
+    await bestEffortWrite(`view increment (${postname})`, () =>
+      db
+        .insert(views)
+        .values({ postname, count: 1 })
+        .onConflictDoUpdate({ target: views.postname, set: { count: sql`${views.count} + 1` } }),
+    )
   }
 
   const [[viewRow], postComments, postInlineComments] = await Promise.all([
-    db.select({ count: views.count }).from(views).where(eq(views.postname, postname)),
-    db.select().from(comments).where(eq(comments.postname, postname)).orderBy(desc(comments.created_at)),
-    db.select().from(inlineComments).where(and(eq(inlineComments.postname, postname), eq(inlineComments.lang, "zh"))).orderBy(desc(inlineComments.created_at)),
+    bestEffortRead(`views read (${postname})`, [] as { count: number }[], () =>
+      db.select({ count: views.count }).from(views).where(eq(views.postname, postname)),
+    ),
+    bestEffortRead(`comments read (${postname})`, [] as (typeof comments.$inferSelect)[], () =>
+      db.select().from(comments).where(eq(comments.postname, postname)).orderBy(desc(comments.created_at)),
+    ),
+    bestEffortRead(`inline comments read (${postname})`, [] as InlineCommentRow[], () =>
+      db.select().from(inlineComments).where(and(eq(inlineComments.postname, postname), eq(inlineComments.lang, "zh"))).orderBy(desc(inlineComments.created_at)),
+    ),
   ])
   const user = getUser()
   const prerendered = getPrerenderedPost(postname, "zh")
