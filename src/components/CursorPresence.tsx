@@ -17,7 +17,7 @@ export default function CursorPresence({ postname }: { postname: string }) {
   const pendingRef = useRef<{ x: number; y: number } | null>(null)
 
   useEffect(() => {
-    const socket = connect(`/cursors/${postname}`)
+    const socket = connect("/cursors/:postname", { params: { postname } })
 
     socket.on("message", (event: any) => {
       if (event.type === "cursor") {

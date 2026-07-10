@@ -15,14 +15,15 @@ export interface InlineCommentThread {
   github_avatar_url: string
   github_display_name: string
   body: string
-  created_at: string | number
+  // Date when rendered on the server (drizzle timestamp), ISO string once hydrated through JSON.
+  created_at: Date | string | number
   replies: Array<{
     id: number
     github_username: string
     github_avatar_url: string
     github_display_name: string
     body: string
-    created_at: string | number
+    created_at: Date | string | number
   }>
 }
 
@@ -341,7 +342,7 @@ function CommentEntry({
   displayName: string
   avatarUrl: string
   body: string
-  createdAt: string | number
+  createdAt: Date | string | number
   lang: Lang
 }) {
   return (

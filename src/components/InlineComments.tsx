@@ -47,7 +47,7 @@ export default function InlineComments({
   const refreshComments = useCallback(async () => {
     const res = await fetch(`/api/inline-comments?postname=${postname}&lang=${lang}`)
     if (res.ok) {
-      const data = await res.json()
+      const data = (await res.json()) as { comments?: InlineCommentThread[] }
       setThreads(data.comments ?? [])
     }
     setDraft(null)

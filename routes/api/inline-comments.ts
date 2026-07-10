@@ -27,7 +27,8 @@ function groupCommentsWithReplies(rows: InlineCommentRow[]) {
 }
 
 function bufferToBase64(buf: ArrayBuffer | Uint8Array): string {
-  return Buffer.from(buf).toString("base64")
+  // Narrow the union: Buffer.from's overloads don't resolve against `ArrayBuffer | Uint8Array`.
+  return Buffer.from(buf instanceof Uint8Array ? buf : new Uint8Array(buf)).toString("base64")
 }
 
 function base64ToBuffer(b64: string): Buffer {

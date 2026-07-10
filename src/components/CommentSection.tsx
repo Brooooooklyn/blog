@@ -11,7 +11,8 @@ interface Comment {
   github_avatar_url: string
   github_display_name: string
   body: string
-  created_at: string | number
+  // Date when rendered on the server (drizzle timestamp), ISO string once hydrated through JSON.
+  created_at: Date | string | number
 }
 
 export default function CommentSection({
