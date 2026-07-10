@@ -23,6 +23,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # .void/ is gitignored, and tsconfig.json extends .void/tsconfig.json for
+      # the @schema paths and the generated route types. Typecheck needs it first.
+      - name: Generate Void types
+        run: pnpm exec void prepare
+
+      - name: Typecheck
+        run: pnpm typecheck
+
       - name: Build
         run: pnpm build
         env:

@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "favicons": "oxnode scripts/generate-favicons.ts"
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@napi-rs/image": "^1.13.0",
+    "@types/node": "^26.1.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@void/react": "^0.9.3",
@@ -30,6 +32,7 @@
     "marked": "^18.0.5",
     "shiki": "^4.2.0",
     "subset-font": "^2.5.0",
+    "typescript": "^7.0.2",
     "vite": "^8.0.16",
     "vitest": "^4.1.9",
     "void": "^0.9.3"
